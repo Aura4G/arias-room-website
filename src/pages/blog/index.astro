@@ -1,0 +1,18 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+const posts = await getCollection('blog');
+---
+<Layout title="Aria's Blog" bgColor="bg-blue-200">
+    <div style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem;">
+        <h1 class="text-lg">Blog</h1>
+        <ul>
+            {posts.map(post => (
+                <li>
+                    <a href={`/blog/${post.id}/`} class="text-lg text-blue-600 hover:underline">{post.data.title}</a>
+                </li>
+            ))}
+        </ul>
+    </div>
+</Layout>
