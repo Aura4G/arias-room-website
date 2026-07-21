@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+const projects = await getCollection('projects');
+---
+<Layout title="Aria's Projects" bgColor="bg-black">
+    <div style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem;" class="flex flex-col items-center">
+        <h1 class="text-3xl font-mono mb-8 text-green-400 underline">My Projects</h1>
+        <div class="shadow-md border border-green-400 rounded-lg p-2 w-full">
+            <ul class="divide-y divide-green-400">
+                {projects.map(projects => (
+                    <li class="py-3">
+                        <a href={`/projects/${projects.id}/`} class="text-lg text-blue-300 font-mono hover:underline">{projects.data.title}</a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </div>
+</Layout>

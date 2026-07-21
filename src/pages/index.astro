@@ -4,20 +4,68 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Aria's Room" bgColor="bg-white">
 	<div class="flex flex-col items-center justify-center min-h-[80vh] text-center gap-6">
-		<h1 class="font-display text-5xl font-bold position: fixed top-40">Aria's Room </h1>		
+		<h1 class="font-display text-5xl font-bold position: absolute top-10">Aria's Room </h1>		
 		<div class="flex justify-between w-full px-4 md:px-[15%]">
 			<div class="flex flex-col items-center gap-2">
-				<a href="/blog/" class=" px-10 py-7 border border-solid border-blue-600 bg-white text-xl text-blue-400 hover:bg-sky-200 ">Blog</a>
+				<a href="/blog/" class=" px-10 py-7 border border-solid border-blue-600 bg-white text-xl text-blue-400 hover:bg-sky-200 duration-300 ">Blog</a>
 				<span class="text-2xl text-sky-400">↓</span>
 			</div>
 			<div class="flex flex-col items-center gap-2">
-				<a href="/about/" class=" px-10 py-7 border border-solid border-red-600 bg-white text-xl text-red-400 hover:bg-red-200 ">About Me!</a>
+				<a href="/about/" class=" px-10 py-7 border border-solid border-red-600 bg-white text-xl text-red-400 hover:bg-red-200 duration-300">About Me!</a>
 				<span class="text-2xl text-red-400">↓</span>
 			</div>
 			<div class="flex flex-col items-center gap-2">
-				<a href="/projects/" class=" px-10 py-7 border border-solid border-black-600 text-xl text-black-600 font-mono hover:bg-black hover:border-green-400 hover:text-green-400 ">My Projects</a>
-				<span class="text-2xl text-black-400">↓</span>
+				<a href="/projects/" id="matrix-btn" class="relative overflow-hidden inline-block px-10 py-7 border border-black text-xl text-black font-mono hover:border-green-400 hover:text-green-400 hover:bg-black transition-colors duration-300">
+					<span id="matrix-layer" class="absolute inset-0 pointer-events-none z-0"></span>
+					<span class="relative z-10">My Projects</span>
+				</a>
+				<span class="text-2xl text-black">↓</span>
 			</div>
 		</div>
 	</div>
 </Layout>
+
+<style>
+	.matrix-char {
+		position: absolute;
+		top: -20px;
+		color: #22c55e;
+		font-family: monospace;
+		font-size: 14px;
+		animation: matrix-fall 1s linear forwards;
+	}
+	@keyframes matrix-fall {
+		0% { transform: translateY(var(--start-y)); opacity: 0; }
+		20% { opacity: 1; }
+		80% { opacity: 1; }
+		100% { transform: translateY(calc(var(--start-y) + 90px)); opacity: 0; }
+	}
+</style>
+
+<script>
+	const btn = document.getElementById('matrix-btn');
+	const layer = document.getElementById('matrix-layer');
+	const chars = '#~[]{}()£$-+=*!?;:<>@0123456789';
+	let interval: ReturnType<typeof setInterval>;
+
+	btn?.addEventListener('mouseenter', () => {
+		interval = setInterval(() => {
+			const span = document.createElement('span');
+			span.className = 'matrix-char';
+			span.textContent = chars[Math.floor(Math.random() * chars.length)];
+			
+			const zone = Math.random() < 0.5
+				? Math.random() * 15
+				: 80 + Math.random() * 15;
+			span.style.left = zone + '%';
+
+			layer?.appendChild(span);
+			setTimeout(() => span.remove(), 1200);
+		}, 80);
+	});
+
+	btn?.addEventListener('mouseleave', () => {
+		clearInterval(interval);
+		if (layer) layer.innerHTML = '';
+	});
+</script>

@@ -3,16 +3,83 @@ import { getCollection } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 
 const posts = await getCollection('blog');
+const tagColors: Record<string, string> = {
+    test: 'bg-gray-100 text-gray-700',
+    Music: 'bg-pink-100 text-pink-700',
+    Games: 'bg-orange-100 text-orange-700',
+    Review: 'bg-yellow-100 text-yellow-700'
+}
+const defaultTagColor = 'bg-blue-100 text-blue-700'
 ---
 <Layout title="Aria's Blog" bgColor="bg-blue-200">
-    <div style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem;">
-        <h1 class="text-lg">Blog</h1>
-        <ul>
-            {posts.map(post => (
-                <li>
-                    <a href={`/blog/${post.id}/`} class="text-lg text-blue-600 hover:underline">{post.data.title}</a>
-                </li>
-            ))}
-        </ul>
+    <div style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem;" class="flex flex-col items-center">
+        <h1 class="text-3xl font-handwriting mb-8 text-white underline">My Blog</h1>
+        <div class="bg-sky-700 rounded-lg shadow-md p-2 w-full">
+            <div class="bg-white rounded-lg p-2">
+                <ul class="divide-y divide-gray-300">
+                    {posts.map(post => (
+                        <li class="py-3">
+                            <a href={`/blog/${post.id}/`} class="post-row">
+                                <span class="title">{post.data.title}</span>
+                                <div class="meta-row">
+                                    <span class="description">{post.data.description}</span>
+                                    <div class="tags">
+                                        {post.data.tags?.map(tag => (
+                                            <span class={`tag-badge ${tagColors[tag] ?? defaultTagColor}`}>{tag}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <span class="date">{post.data.pubDate.toDateString()}</span>
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
     </div>
 </Layout>
+
+<style>
+    .post-row {
+        display: grid;
+        grid-template-rows: auto auto auto;
+        gap: 0.5rem;
+        align-items:start;
+        color: #5281e6;
+        font-size: 1.125rem;
+    }
+    .title {
+        font-weight: 500;
+    }
+    .post-row:hover .title {
+        text-decoration: underline;
+    }
+    .meta-row {
+        display:flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: flex-start;
+    }
+    .description {
+        font-weight: 300;
+        color: #6b7280;
+        font-size: 1rem;
+    }
+    .tags {
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+    .tag-badge {
+        font-size: 0.75rem;
+        padding: 0.15rem 0.5rem;
+        border-radius: 0.375rem;
+        font-weight: 500;
+    }
+    .date {
+        color:#6b7280;
+        font-size: 0.875rem;
+        text-align: right;
+    }
+</style>
