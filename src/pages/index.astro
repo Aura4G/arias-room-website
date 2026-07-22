@@ -4,22 +4,32 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Aria's Room" bgColor="bg-white">
 	<div class="flex flex-col items-center justify-center min-h-[80vh] text-center gap-6">
-		<h1 class="font-display text-5xl font-bold position: absolute top-10">Aria's Room </h1>		
+		<h1 class="font-display text-5xl font-bold underline decoration-double position: absolute top-10">Aria's Room </h1>		
 		<div class="flex justify-between w-full px-4 md:px-[15%]">
 			<div class="flex flex-col items-center gap-2">
-				<a href="/blog/" class=" px-10 py-7 border border-solid border-blue-600 bg-white text-xl text-blue-400 hover:bg-sky-200 duration-300 ">Blog</a>
-				<span class="text-2xl text-sky-400">↓</span>
-			</div>
-			<div class="flex flex-col items-center gap-2">
-				<a href="/about/" class=" px-10 py-7 border border-solid border-red-600 bg-white text-xl text-red-400 hover:bg-red-200 duration-300">About Me!</a>
+				<a href="#" id="nowplaying-btn" target="_blank" class=" px-8 py-7 border border-solid border-red-600 bg-white text-xl text-red-400 hover:bg-red-200 duration-300 ">
+					<span id="nowplaying-text">Loading...</span>
+				</a>
 				<span class="text-2xl text-red-400">↓</span>
+				<img src="https://placehold.co/150x150/fee2e2/b91c1c?text=Music" alt="Music Preview" class="w-32 h-32 object-cover rounded-lg">
 			</div>
 			<div class="flex flex-col items-center gap-2">
-				<a href="/projects/" id="matrix-btn" class="relative overflow-hidden inline-block px-10 py-7 border border-black text-xl text-black font-mono hover:border-green-400 hover:text-green-400 hover:bg-black transition-colors duration-300">
+				<a href="/blog/" class=" px-8 py-7 border border-solid border-blue-600 bg-white text-xl text-blue-400 hover:bg-sky-200 duration-300 ">Blog</a>
+				<span class="text-2xl text-sky-400">↓</span>
+				<img src="https://placehold.co/150x150/e0f2fe/0369a1?text=Blog" alt="Blog Preview" class="w-32 h-32 object-cover rounded-lg">
+			</div>
+			<div class="flex flex-col items-center gap-2">
+				<a href="/about/" class=" px-8 py-7 border border-solid border-purple-600 bg-white text-xl text-purple-400 hover:bg-purple-200 duration-300">About Me!</a>
+				<span class="text-2xl text-purple-400">↓</span>
+				<img src="https://placehold.co/150x150/e3a9fa/623a8c?text=About" alt="About Preview" class="w-32 h-32 object-cover rounded-lg">
+			</div>
+			<div class="flex flex-col items-center gap-2 group">
+				<a href="/projects/" id="matrix-btn" class="relative overflow-hidden inline-block px-8 py-7 border border-black text-xl text-black font-mono hover:border-green-400 hover:text-green-400 hover:bg-black transition-colors duration-300">
 					<span id="matrix-layer" class="absolute inset-0 pointer-events-none z-0"></span>
 					<span class="relative z-10">My Projects</span>
 				</a>
-				<span class="text-2xl text-black">↓</span>
+				<span class="text-2xl text-black group-hover:text-green-400 transition-colors duration-300">↓</span>
+				<img src="https://placehold.co/150x150/000000/22c55e?text=Projects" alt="Projects Preview" class="w-32 h-32 object-cover rounded-lg">
 			</div>
 		</div>
 	</div>
@@ -68,4 +78,40 @@ import Layout from '../layouts/Layout.astro';
 		clearInterval(interval);
 		if (layer) layer.innerHTML = '';
 	});
+</script>
+
+<script define:vars={{ lastfmApiKey: "c0dfe44fd0faf843ed32ee5077173171", lastfmUsername: "AriaAura"}}>
+	async function updateNowPlaying() {
+		const btn = document.getElementById('nowplaying-btn');
+		const text = document.getElementById('nowplaying-text');
+		if (!btn || !text) return;
+
+		try {
+			const res = await fetch(
+				`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${lastfmUsername}&api_key=${lastfmApiKey}&format=json&limit=1`
+			);
+			const data = await res.json();
+			const track = data?.recenttracks?.track?.[0];
+
+			if (track) {
+				const artist = track.artist?.['#text'] ?? '';
+				const name = track.name ?? '';
+				const isNowPlaying = track['@attr']?.nowplaying === 'true';
+
+				text.textContent = isNowPlaying
+					? `𝅘𝅥𝅮 ${artist}: ${name}`
+					: `Last played: ${artist}: ${name}`;
+
+				if (track.url) btn.href = track.url;
+			} else {
+				text.textContent = 'No recent tracks';
+			}
+		} catch (err) {
+			text.textContent = 'Unable to load';
+			console.error('Last.fm fetch failed', err);
+		}
+	}
+
+	updateNowPlaying();
+	setInterval(updateNowPlaying, 60000);
 </script>
