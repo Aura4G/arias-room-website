@@ -7,13 +7,15 @@ const tagColors: Record<string, string> = {
     test: 'bg-gray-100 text-gray-700',
     Music: 'bg-pink-100 text-pink-700',
     Games: 'bg-orange-100 text-orange-700',
-    Review: 'bg-yellow-100 text-yellow-700'
+    Review: 'bg-yellow-100 text-yellow-700',
+    Lifestyle: 'bg-green-100 text-green700',
+    Gym: 'bg-red-100 text-red-700'
 }
 const defaultTagColor = 'bg-blue-100 text-blue-700'
 ---
 <Layout title="Aria's Blog" bgColor="bg-blue-200">
     <div style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem;" class="flex flex-col items-center">
-        <h1 class="text-3xl font-handwriting mb-8 text-white underline">My Blog</h1>
+        <h1 class="text-5xl text-shadow-lg border-white font-handwriting mb-8 text-white underline">My Blog</h1>
         <div class="bg-sky-700 rounded-lg shadow-md p-2 w-full">
             <div class="bg-white rounded-lg p-2">
                 <ul class="divide-y divide-gray-300">
@@ -63,7 +65,7 @@ const defaultTagColor = 'bg-blue-100 text-blue-700'
     .description {
         font-weight: 300;
         color: #6b7280;
-        font-size: 1rem;
+        font-size: 0.875rem;
     }
     .tags {
         display: flex;
@@ -79,7 +81,7 @@ const defaultTagColor = 'bg-blue-100 text-blue-700'
     }
     .date {
         color:#6b7280;
-        font-size: 0.875rem;
+        font-size: 0.75rem;
         text-align: right;
     }
 </style>
