@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import NavButtons from "../../components/nav-buttons.astro";
 
 export async function getStaticPaths() {
     const posts = await getCollection('blog');
@@ -14,7 +15,8 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 <Layout title={post.data.title} bgColor="bg-blue-200">
-    <article style="max-width: 700px; margin: 0 auto; padding: 3rem 1rem;">
+    <NavButtons backHref="/blog/" color="blue"/>
+    <article style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem;" class="flex flex-col items-center">
         <div class="bg-white shadow-md p-2 border border-4 border-solid border-sky-700">
             <h1 class="text-4xl underline font-handwriting text-black">{post.data.title}</h1>
             <p class="text-xl underline font-handwriting mb-8">{post.data.pubDate.toDateString()}</p>

@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
+import NavButtons from "../../components/nav-buttons.astro";
 
 export async function getStaticPaths() {
     const projects = await getCollection('projects');
@@ -24,6 +25,7 @@ const tagColors: Record<string, string> = {
 const defaultTagColor = 'bg-lime-100 text-lime-700'
 ---
 <Layout title={project.data.title} bgColor="bg-black">
+    <NavButtons backHref="/projects/" color="green"/>
     <article style="max-width: 700px; margin: 0 auto; padding: 3rem 1rem;">
         <h1 class="typing text-4xl text-green-400 font-mono underline mb-4" style={{"--chars": project.data.title.length, "--speed": '1s'}}>{project.data.title}</h1>
         <div class="tags font-mono mb-8">
