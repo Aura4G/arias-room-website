@@ -2,34 +2,39 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Aria's Room" bgColor="bg-white">
-	<div class="flex flex-col items-center justify-center min-h-[80vh] text-center gap-6">
-		<h1 class="font-display text-5xl font-bold underline decoration-double position: absolute top-10">Aria's Room </h1>		
+<Layout title="Aria's Office" bgColor="bg-white">
+	<div class="flex flex-col items-center justify-center min-h-[70vh] text-center gap-6">
+		<h1 class="font-display text-5xl font-bold underline decoration-double">Aria's Office</h1>		
 		<div class="flex justify-between w-full px-4 md:px-[15%]">
-			<div class="flex flex-col items-center gap-2">
-				<a href="#" id="nowplaying-btn" target="_blank" class=" px-8 py-7 border border-solid border-red-600 bg-white text-xl text-red-400 hover:bg-red-200 duration-300 ">
-					<span id="nowplaying-text">Loading...</span>
-				</a>
-				<span class="text-2xl text-red-400">↓</span>
-				<img src="https://placehold.co/150x150/fee2e2/b91c1c?text=Music" alt="Music Preview" class="w-32 h-32 object-cover rounded-lg">
+			<div class="flex flex-col items-center gap-2 group">
+				<a href="/blog/" class=" px-8 py-7 border border-solid border-black bg-white text-xl text-black hover:text-blue-400 hover:bg-sky-100 hover:border-blue-600 duration-300 ">Blog</a>
+				<span class="text-2xl text-black group-hover:text-blue-400 transition-colors duration-300">↓</span>
+				<img src="/images/front-page/blog-scroll.png" alt="Blog" class="w-63 h-96 object-cover">
 			</div>
-			<div class="flex flex-col items-center gap-2">
-				<a href="/blog/" class=" px-8 py-7 border border-solid border-blue-600 bg-white text-xl text-blue-400 hover:bg-sky-200 duration-300 ">Blog</a>
-				<span class="text-2xl text-sky-400">↓</span>
-				<img src="https://placehold.co/150x150/e0f2fe/0369a1?text=Blog" alt="Blog Preview" class="w-32 h-32 object-cover rounded-lg">
-			</div>
-			<div class="flex flex-col items-center gap-2">
-				<a href="/about/" class=" px-8 py-7 border border-solid border-purple-600 bg-white text-xl text-purple-400 hover:bg-purple-200 duration-300">About Me!</a>
-				<span class="text-2xl text-purple-400">↓</span>
-				<img src="https://placehold.co/150x150/e3a9fa/623a8c?text=About" alt="About Preview" class="w-32 h-32 object-cover rounded-lg">
+			<div class="flex flex-col items-center gap-2 group">
+				<a href="/about/" class=" px-8 py-7 border border-solid border-black bg-white text-xl text-black hover:text-purple-400 hover:border-purple-600 hover:bg-purple-200 duration-300">About Me!</a>
+				<span class="text-2xl text-black group-hover:text-purple-400 transition-colors duration-300">↓</span>
+				<img src="/images/front-page/aria-chair.gif" alt="About Me!" class="w-63 h-96 object-cover">
 			</div>
 			<div class="flex flex-col items-center gap-2 group">
 				<a href="/projects/" id="matrix-btn" class="relative overflow-hidden inline-block px-8 py-7 border border-black text-xl text-black font-mono hover:border-green-400 hover:text-green-400 hover:bg-black transition-colors duration-300">
 					<span id="matrix-layer" class="absolute inset-0 pointer-events-none z-0"></span>
-					<span class="relative z-10">My Projects</span>
+					<span class="relative z-10">Projects</span>
 				</a>
 				<span class="text-2xl text-black group-hover:text-green-400 transition-colors duration-300">↓</span>
 				<img src="https://placehold.co/150x150/000000/22c55e?text=Projects" alt="Projects Preview" class="w-32 h-32 object-cover rounded-lg">
+			</div>
+			<div class="flex flex-col items-center gap-2">
+				<a href="#" id="nowplaying-btn" target="_blank" class="flex items-center gap-4 px-4 py-3 border border-solid border-red-600 bg-white text-xl text-red-400 w-65 hover:bg-red-200 duration-300 ">
+					<img id="nowplaying-art" src="/images/misc/default-album.png" alt="Album art" class="w-16 h-16 object-cover rounded-md flex-shrink-0">
+					<div class="flex flex-col text-left overflow-hidden">
+						<span id="nowplaying-song" class="truncate text-lg font-semibold text-red-700">Loading...</span>
+						<span id="nowplaying-artist" class="truncate text-sm text-red-500">...</span>
+						<span id="nowplaying-status" class="truncate text-xs text-red-400">...</span>
+					</div>
+				</a>
+				<span id="music-arrow" class="text-2xl text-red-400">↓</span>
+				<img src="/images/front-page/music-player.gif" alt="Music Player" id="vinyl-art" class="w-63 h-96 object-cover">
 			</div>
 		</div>
 	</div>
@@ -71,7 +76,7 @@ import Layout from '../layouts/Layout.astro';
 
 			layer?.appendChild(span);
 			setTimeout(() => span.remove(), 1200);
-		}, 80);
+		}, 120);
 	});
 
 	btn?.addEventListener('mouseleave', () => {
@@ -83,8 +88,13 @@ import Layout from '../layouts/Layout.astro';
 <script define:vars={{ lastfmApiKey: "PLACEHOLDER_KEY", lastfmUsername: "PLACEHOLDER_NAME"}}>
 	async function updateNowPlaying() {
 		const btn = document.getElementById('nowplaying-btn');
-		const text = document.getElementById('nowplaying-text');
-		if (!btn || !text) return;
+		const art = document.getElementById('nowplaying-art');
+		const songEl = document.getElementById('nowplaying-song');
+		const artistEl = document.getElementById('nowplaying-artist');
+		const statusEl = document.getElementById('nowplaying-status');
+		const arrowEl = document.getElementById('music-arrow');
+		const belowImg = document.getElementById('vinyl-art');
+		if (!btn || !songEl || !artistEl || !statusEl || !belowImg) return;
 
 		try {
 			const res = await fetch(
@@ -94,17 +104,48 @@ import Layout from '../layouts/Layout.astro';
 			const track = data?.recenttracks?.track?.[0];
 
 			if (track) {
-				const artist = track.artist?.['#text'] ?? '';
-				const name = track.name ?? '';
+				const artist = track.artist?.['#text'] ?? 'Unknown Artist';
+				const name = track.name ?? 'Unknown Artist';
 				const isNowPlaying = track['@attr']?.nowplaying === 'true';
+				const albumArt = track.image?.find(img => img.size === 'large')?.['#text'];
 
-				text.textContent = isNowPlaying
-					? `𝅘𝅥𝅮 ${artist}: ${name}`
-					: `Last played: ${artist}: ${name}`;
+				songEl.textContent = name;
+				artistEl.textContent = artist;
+				statusEl.textContent = isNowPlaying
+					? `𝅘𝅥𝅮 Now playing - last.fm`
+					: `Last played - last.fm`;
 
+				if (albumArt && art) art.src = albumArt;
 				if (track.url) btn.href = track.url;
+
+				belowImg.src = isNowPlaying
+					? `images/front-page/music-player.gif`
+					: `images/front-page/music-idle.png`;
+
+				btn.style.border = isNowPlaying
+					? '1px solid #DC2626'
+					: '1px solid black';
+
+				songEl.style.color = isNowPlaying
+					? '#B91C1C'
+					: 'black';
+				
+				artistEl.style.color = isNowPlaying
+					? '#EF4444'
+					: 'black';
+				
+				statusEl.style.color = isNowPlaying
+					? '#F87171'
+					: 'black';
+
+				arrowEl.style.color = isNowPlaying
+					? '#F87171'
+					: 'black';
+				
 			} else {
-				text.textContent = 'No recent tracks';
+				songEl.textContent = 'No recent tracks';
+				artistEl.textContent = '';
+				statusEl.textContent = '';
 			}
 		} catch (err) {
 			text.textContent = 'Unable to load';

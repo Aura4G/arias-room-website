@@ -15,28 +15,26 @@ const defaultTagColor = 'bg-blue-100 text-blue-700'
 ---
 <Layout title="Aria's Blog" bgColor="bg-blue-200">
     <div style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem;" class="flex flex-col items-center">
-        <h1 class="text-5xl text-shadow-lg border-white font-handwriting mb-8 text-white underline">My Blog</h1>
-        <div class="bg-sky-700 rounded-lg shadow-md p-2 w-full">
-            <div class="bg-white rounded-lg p-2">
-                <ul class="divide-y divide-gray-300">
-                    {posts.map(post => (
-                        <li class="py-3">
-                            <a href={`/blog/${post.id}/`} class="post-row">
-                                <span class="title">{post.data.title}</span>
-                                <div class="meta-row">
-                                    <span class="description">{post.data.description}</span>
-                                    <div class="tags">
-                                        {post.data.tags?.map(tag => (
-                                            <span class={`tag-badge ${tagColors[tag] ?? defaultTagColor}`}>{tag}</span>
-                                        ))}
-                                    </div>
+        <h1 class="text-5xl text-shadow-lg font-handwriting mb-8 text-white underline">My Blog ✎</h1>
+        <div class="bg-white shadow-md border border-4 border-solid border-sky-700 p-3 w-full">
+            <ul class="divide-y divide-gray-300">
+                {posts.map(post => (
+                    <li class="py-3">
+                        <a href={`/blog/${post.id}/`} class="post-row">
+                            <span class="title">{post.data.title}</span>
+                            <div class="meta-row">
+                                <span class="description notebook-lines">{post.data.description}</span>
+                                <div class="tags">
+                                    {post.data.tags?.map(tag => (
+                                        <span class={`tag-badge ${tagColors[tag] ?? defaultTagColor}`}>{tag}</span>
+                                    ))}
                                 </div>
-                                <span class="date">{post.data.pubDate.toDateString()}</span>
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+                            </div>
+                            <span class="date">{post.data.pubDate.toDateString()}</span>
+                        </a>
+                    </li>
+                ))}
+            </ul>
         </div>
     </div>
 </Layout>

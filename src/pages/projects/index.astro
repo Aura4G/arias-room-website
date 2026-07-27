@@ -15,7 +15,8 @@ const defaultTagColor = 'bg-lime-100 text-lime-700'
 ---
 <Layout title="Aria's Projects" bgColor="bg-black">
     <div style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem;" class="flex flex-col items-center">
-        <h1 class="typing text-4xl font-mono mb-8 text-green-400 text-center underline" style={{"--chars": 11, "--speed": '1s'}}>My Projects</h1>
+        <h1 class="typing text-4xl font-mono mb-4 text-green-400 text-center underline" style={{"--chars": 11, "--speed": '1s'}}>My Projects</h1>
+        <h1 class="text-xl font-mono mb-8 text-green-400 text-center">Hover over a project to see its description!</h1>
         <div class="shadow-md border border-green-400 rounded-lg p-2 w-full">
             <ul class="divide-y divide-green-400">
                 {projects.map(project => (
@@ -39,29 +40,6 @@ const defaultTagColor = 'bg-lime-100 text-lime-700'
 </Layout>
 
 <style>
-    .typing {
-        overflow: hidden;
-        white-space: nowrap;
-        border-right: 2px solid;
-        width: 0;
-        animation: typing var(--speed, 1.5s) steps(var(--chars, 10), end) forwards, blink 0.8s step-end infinite;
-    }
-
-    @keyframes typing {
-        from {
-            width 0;
-        }
-        to {
-            width: calc(var(--chars) * 1ch);
-        }
-    }
-
-    @keyframes blink {
-        50% {
-            border-color: transparent;
-        }
-    }
-
     .post-row {
         display: grid;
         grid-template-rows: auto auto;

@@ -13,10 +13,14 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 ---
-<Layout title="Aria's Blog" bgColor="bg-blue-200">
-    <article style="max-width: 700px; margin: 0 auto; padding; 2rem 1rem;">
-        <h1>{post.data.title}</h1>
-        <p>{post.data.pubDate.toDateString()}</p>
-        <Content />
+<Layout title={post.data.title} bgColor="bg-blue-200">
+    <article style="max-width: 700px; margin: 0 auto; padding: 3rem 1rem;">
+        <div class="bg-white shadow-md p-2 border border-4 border-solid border-sky-700">
+            <h1 class="text-4xl underline font-handwriting text-black">{post.data.title}</h1>
+            <p class="text-xl underline font-handwriting mb-8">{post.data.pubDate.toDateString()}</p>
+            <div class="notebook-lines prose prose-sm max-w-none">
+                <Content />
+            </div>
+        </div>
     </article>
 </Layout>
