@@ -5,7 +5,7 @@ interface Props {
 	title?: string;
 	bgColor?: string;
 }
-const { title = "Your Name", bgColor = "bg-white" } = Astro.props;
+const { title = "Aria Noroozi", bgColor = "bg-white" } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -21,7 +21,7 @@ const { title = "Your Name", bgColor = "bg-white" } = Astro.props;
   		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Fraunces:wght@400;600&display=swap&family=Caveat:wght@400;500;700" rel="stylesheet">
 	</head>
-	<body class={`${bgColor} min-h-screen`}>
+	<body class={`${bgColor} min-h-screen fade-in`}>
 		<slot />
 	</body>
 </html>
