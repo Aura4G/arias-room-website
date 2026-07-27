@@ -1,0 +1,19 @@
+---
+import '../styles/global.css';
+
+interface Props {
+    backHref?: string;
+    color?: string; 
+}
+
+const { backHref = "/", color = "gray" } = Astro.props;
+---
+
+<div class="flex gap-4 mt-4 ml-4">
+    <a href="/" class={`px-4 py-2 text-${color}-400 border border-${color}-400 rounded-lg hover:bg-gray-100 transition-colors`}>
+        ⌂
+    </a>
+    <a href={backHref} class={`px-4 py-2 text-${color}-400 border border-${color}-400 rounded-lg hover:bg-gray-100 transition-colors`}>
+        ←
+    </a>
+</div>
