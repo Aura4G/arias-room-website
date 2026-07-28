@@ -19,10 +19,10 @@ const defaultTagColor = 'bg-lime-100 text-lime-700'
     <div style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem;" class="flex flex-col items-center font-mono">
         <h1 class="typing text-4xl mb-4 text-green-400 text-center underline" style={{"--chars": 11, "--speed": '1s'}}>My Projects</h1>
         <h1 class="text-xl mb-8 text-green-400 text-center">Hover over a project to see its description!</h1>
-        <div class="shadow-md border border-green-400 rounded-lg p-2 w-full">
+        <div class="fade-in-delay shadow-md border border-green-400 rounded-lg p-2 w-full" style={{"--downtime": '0.2s'}}>
             <ul class="divide-y divide-green-400">
-                {projects.map(project => (
-                    <li class="py-3">
+                {projects.map((project, index) => (
+                    <li class="py-3 fade-in-delay" style={{"--downtime": `${index * 0.4}s`}}>
                         <a href={`/projects/${project.id}/`} class="post-row">
                             <span class="title">{project.data.title}</span>
                             <div class="meta-row">

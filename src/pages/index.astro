@@ -1,4 +1,5 @@
 ---
+import Externals from "../components/externals.astro"
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import blogImg from "../assets/images/front-page/blog-scroll.png"
@@ -10,6 +11,7 @@ import defAlbumImg from "../assets/images/misc/default-album.png"
 ---
 
 <Layout title="Aria's Office" bgColor="bg-white">
+	<Externals color="gray"/>
 	<div class="flex flex-col items-center justify-center min-h-[70vh] text-center gap-6">
 		<h1 class="font-display text-5xl font-bold underline decoration-double">Aria's Office</h1>		
 		<div class="flex justify-between w-full px-4 md:px-[15%]">
