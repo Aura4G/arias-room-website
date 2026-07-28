@@ -98,7 +98,7 @@ const defaultTagColor = 'bg-lime-100 text-lime-700'
                 index++;
                 descSpan.textContent = realText.slice(0, index) + maskText.slice(index);
                 if (index >= realText.length) clearInterval(typeInterval);
-            }, 50);
+            }, 25);
         });
 
         row.addEventListener('mouseleave', () => {

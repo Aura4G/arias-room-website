@@ -1,5 +1,12 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import blogImg from "../assets/images/front-page/blog-scroll.png"
+import aboutImg from "../assets/images/front-page/aria-chair.gif"
+import projectsImg from "../assets/images/front-page/monkey.jpg"
+import playingImg from "../assets/images/front-page/music-player.gif"
+import idleImg from "../assets/images/front-page/music-idle.png"
+import defAlbumImg from "../assets/images/misc/default-album.png"
 ---
 
 <Layout title="Aria's Office" bgColor="bg-white">
@@ -9,12 +16,12 @@ import Layout from '../layouts/Layout.astro';
 			<div class="flex flex-col items-center gap-2 group">
 				<a href="/blog/" class=" px-8 py-7 border border-solid border-black bg-white text-xl text-black hover:text-blue-400 hover:bg-sky-100 hover:border-blue-600 duration-300 ">Blog</a>
 				<span class="text-2xl text-black group-hover:text-blue-400 transition-colors duration-300">↓</span>
-				<img src="/images/front-page/blog-scroll.png" alt="Blog" class="w-63 h-96 object-cover">
+				<Image src={blogImg} alt="Blog" class="w-63 h-96 object-cover" loading="eager" />
 			</div>
 			<div class="flex flex-col items-center gap-2 group">
 				<a href="/about/" class=" px-8 py-7 border border-solid border-black bg-white text-xl text-black hover:text-purple-400 hover:border-purple-600 hover:bg-purple-200 duration-300">About Me!</a>
 				<span class="text-2xl text-black group-hover:text-purple-400 transition-colors duration-300">↓</span>
-				<img src="/images/front-page/aria-chair.gif" alt="About Me!" class="w-63 h-96 object-cover">
+				<Image src={aboutImg} alt="About Me!" class="w-63 h-96 object-cover" loading="eager"/>
 			</div>
 			<div class="flex flex-col items-center gap-2 group">
 				<a href="/projects/" id="matrix-btn" class="relative overflow-hidden inline-block px-8 py-7 border border-black text-xl text-black font-mono hover:border-green-400 hover:text-green-400 hover:bg-black transition-colors duration-300">
@@ -22,11 +29,11 @@ import Layout from '../layouts/Layout.astro';
 					<span class="relative z-10">Projects</span>
 				</a>
 				<span class="text-2xl text-black group-hover:text-green-400 transition-colors duration-300">↓</span>
-				<img src="https://placehold.co/150x150/000000/22c55e?text=Projects" alt="Projects Preview" class="w-32 h-32 object-cover rounded-lg">
+				<Image src={projectsImg} alt="Projects Preview" class="w-63 h-96 object-cover" loading="eager" />
 			</div>
 			<div class="flex flex-col items-center gap-2">
 				<a href="#" id="nowplaying-btn" target="_blank" class="flex items-center gap-4 px-4 py-3 border border-solid border-red-600 bg-white text-xl text-red-400 w-65 hover:bg-red-200 duration-300 ">
-					<img id="nowplaying-art" src="/images/misc/default-album.png" alt="Album art" class="w-16 h-16 object-cover rounded-md flex-shrink-0">
+					<Image id="nowplaying-art" src={defAlbumImg} alt="Album art" width={128} height={128} class="w-16 h-16 object-cover rounded-md flex-shrink-0" loading="eager" />
 					<div class="flex flex-col text-left overflow-hidden">
 						<span id="nowplaying-song" class="truncate text-lg font-semibold text-red-700">Loading...</span>
 						<span id="nowplaying-artist" class="truncate text-sm text-red-500">...</span>
@@ -34,7 +41,7 @@ import Layout from '../layouts/Layout.astro';
 					</div>
 				</a>
 				<span id="music-arrow" class="text-2xl text-red-400">↓</span>
-				<img src="/images/front-page/music-player.gif" alt="Music Player" id="vinyl-art" class="w-63 h-96 object-cover">
+				<Image src={playingImg} alt="Music Player" id="vinyl-art" class="w-63 h-96 object-cover" loading="eager" />
 			</div>
 		</div>
 	</div>
@@ -85,7 +92,7 @@ import Layout from '../layouts/Layout.astro';
 	});
 </script>
 
-<script define:vars={{ lastfmApiKey: "PLACEHOLDER_KEY", lastfmUsername: "PLACEHOLDER_NAME"}}>
+<script define:vars={{ lastfmApiKey: "PLACEHOLDER_KEY", lastfmUsername: "PLACEHOLDER_NAME", playingSrc: playingImg.src, idleSrc: idleImg.src}}>
 	async function updateNowPlaying() {
 		const btn = document.getElementById('nowplaying-btn');
 		const art = document.getElementById('nowplaying-art');
@@ -119,8 +126,8 @@ import Layout from '../layouts/Layout.astro';
 				if (track.url) btn.href = track.url;
 
 				belowImg.src = isNowPlaying
-					? `images/front-page/music-player.gif`
-					: `images/front-page/music-idle.png`;
+					? playingSrc
+					: idleSrc;
 
 				btn.style.border = isNowPlaying
 					? '1px solid #DC2626'
