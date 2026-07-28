@@ -1,11 +1,54 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import NavButtons from "../components/nav-buttons.astro"
+import { Image } from "astro:assets"
+import gradImg from "../assets/images/about/grad1.jpeg"
+import teachImg from "../assets/images/about/exeai3.jpeg"
+import meImg from "../assets/images/about/me1.jpeg"
 ---
 
-<Layout title="About Aria Noroozi" bgColor="bg-purple-200">
+<Layout title="About Aria Noroozi" bgColor="bg-purple-100">
     <NavButtons color="purple"/>
-    <div class="flex flex-col items-center justify-center min-h-[80vh] text-center gap-6">
-        <h1 class="text-lg font-display">About Aria Noroozi!</h1>
+    <div style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem;" class="flex flex-col items-center">
+        <h1 class="text-5xl font-display underline font-bold mb-8">About Me!</h1>
+        <p class="text-lg text-center font-sans mb-6">
+            Hi! I am Aria, a developer with a keen aptitude for writing code, teaching, and making illustrations for fun.
+        </p>
+        <div class="fade-in-delay rounded-xl bg-fuchsia-200 shadow-lg flex flex-row items-center justify-center pl-4 gap-5 mb-6" style="--downtime: 0.25s;">
+            <p class="text-sm font-sans">
+                I've recently earnt a Bachelor's degree in Computer Science at the University, scoring a 2:1. With
+                my newfound freedom from the study cycle, I am eager to dive deeper into the world of tech,
+                while showing off my various technical projects on this website.
+                <br><br>
+                During my time at University, I honed a variety of programming languages, as well as studied the practical applications
+                behind these languages extensively. You can follow my exploits on the &nbsp;
+                <a href="/projects/" class="font-mono text-green-400 underline rounded-sm bg-black">projects page!</a>
+            </p>
+            <Image src={gradImg} alt="graduation" class="w-70 h-70 object-cover border border-3 border-solid border-violet-900" loading="eager" />
+        </div>
+        <div class="fade-in-delay rounded-xl bg-fuchsia-200 shadow-lg flex flex-row items-center justify-center pl-4 gap-5 mb-6" style="--downtime: 0.75s;">
+            <p class="text-sm font-sans">
+                From 2025-2026, I had the joy of co-founding and lecturing for Exeter University's student-led machine learning workshop: &nbsp;
+                <a href="https://www.linkedin.com/company/exeai/" target="_blank" class="text-blue-400 underline">ExeAI</a>.
+                <br><br>
+                I taught over 200 students the fundamentals of regression and classification, receiving heavy praise for my teaching effort.
+                <br><br>
+                My contribution to the Google Developer Student Club, through ExeAI, aided in us winning the 2026 Student Guild Empowerment award!
+            </p>
+            <Image src={teachImg} alt="exeai" class="w-70 h-70 object-cover border border-3 border-solid border-violet-900" loading="eager" />
+        </div>
+        <div class="fade-in-delay rounded-xl bg-fuchsia-200 shadow-lg flex flex-row items-center justify-center pl-4 gap-5" style="--downtime: 1.25s;">
+            <p class="text-sm font-sans">
+                Outside of coding, my hobbies include long-distance running, drawing and animation, and videogames.
+                <br><br>
+                I love talking television and music too. If you're a fan of Psych or J Dilla, we'll get along just fine ;)
+                <br><br>
+                You can catch me discussing all of these topics and more on my &nbsp;
+                <a href="/blog/" class="bg-blue-200 rounded-sm underline text-blue-600">blog page!</a> Happy exploring!
+                <br><br>
+                (P.S. This photo of me was taken on holiday in Dubrovnik!! Such a beautiful place...)
+            </p>
+            <Image src={meImg} alt="me" class="w-70 h-70 object-cover border border-3 border-solid border-violet-900" loading="eager" />
+        </div>
     </div>
 </Layout>
