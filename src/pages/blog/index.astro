@@ -18,10 +18,10 @@ const defaultTagColor = 'bg-blue-100 text-blue-700'
     <NavButtons color="blue"/>
     <div style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem;" class="flex flex-col items-center">
         <h1 class="text-5xl text-shadow-lg font-handwriting mb-8 text-white underline">My Blog ✎</h1>
-        <div class="bg-white shadow-md border border-4 border-solid border-sky-700 p-3 w-full">
+        <div class="bg-white fade-in-delay shadow-md border border-4 border-solid border-sky-700 p-3 w-full" style={{"--downtime": '0.2s'}}>
             <ul class="divide-y divide-gray-300">
-                {posts.map(post => (
-                    <li class="py-3">
+                {posts.map((post, index) => (
+                    <li class="py-3 fade-in-delay" style={{"--downtime": `${index * 0.4}s`}}>
                         <a href={`/blog/${post.id}/`} class="post-row">
                             <span class="title">{post.data.title}</span>
                             <div class="meta-row">

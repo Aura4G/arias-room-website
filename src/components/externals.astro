@@ -1,0 +1,29 @@
+---
+import "../styles/global.css";
+
+import GithubImg from "../assets/images/misc/github-brands-solid-full.svg";
+import LinkedInImg from "../assets/images/misc/square-linkedin-brands-solid-full.svg";
+
+interface Props {
+    color?: string; 
+}
+
+const { color = "gray" } = Astro.props;
+
+const tagColors: Record<string, string> = {
+    gray: 'fill-gray-700',
+    blue: 'fill-blue-700',
+    red: 'fill-red-700',
+    green: 'fill-green-700',
+}
+const defaultTagColor = 'fill-gray-700'
+---
+
+<div class="flex justify-end gap-4 mt-4 mr-4">
+    <a href="https://www.linkedin.com/in/aria-noroozi-5a32b62a8/" target="_blank">
+        <LinkedInImg width={32} height={32} class={`${tagColors[color] ?? defaultTagColor} transition-all duration-200 hover:brightness-300`}/>
+    </a>
+    <a href="https://github.com/Aura4G" target="_blank">
+        <GithubImg width={32} height={32} class={`${tagColors[color] ?? defaultTagColor} transition-all duration-200 hover:brightness-300`}/>
+    </a>
+</div>
