@@ -10,20 +10,20 @@ interface Props {
 
 const { color = "gray" } = Astro.props;
 
-const tagColors: Record<string, string> = {
-    gray: 'fill-gray-700',
+const BtnColors: Record<string, string> = {
+    gray: 'fill-gray-900',
     blue: 'fill-blue-700',
-    red: 'fill-red-700',
+    purple: 'fill-purple-700',
     green: 'fill-green-700',
 }
-const defaultTagColor = 'fill-gray-700'
+const defaultBtnColor = 'fill-gray-700'
 ---
 
 <div class="flex justify-end gap-4 mt-4 mr-4">
     <a href="https://www.linkedin.com/in/aria-noroozi-5a32b62a8/" target="_blank">
-        <LinkedInImg width={32} height={32} class={`${tagColors[color] ?? defaultTagColor} transition-all duration-200 hover:brightness-300`}/>
+        <LinkedInImg width={32} height={32} class={`${BtnColors[color] ?? defaultBtnColor} transition-all duration-200 hover:brightness-300`}/>
     </a>
     <a href="https://github.com/Aura4G" target="_blank">
-        <GithubImg width={32} height={32} class={`${tagColors[color] ?? defaultTagColor} transition-all duration-200 hover:brightness-300`}/>
+        <GithubImg width={32} height={32} class={`${BtnColors[color] ?? defaultBtnColor} transition-all duration-200 hover:brightness-300`}/>
     </a>
 </div>
