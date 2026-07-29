@@ -23,11 +23,11 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
         <div class = "flex flex-wrap gap-2 mb-6" id="tag-filters">
             <button class={`tag-filter-btn active bg-white text-black`} data-tag="all">All</button>
             {allTags.map(tag => (
-                <button class={`tag-filter-btn ${tagColors[tag] ?? defaultTagColor}`} data-tag={tag}>{tag}</button>
+                <button class={`tag-filter-btn ${tagColors[tag] ?? defaultTagColor} transition-all hover:brightness-125`} data-tag={tag}>{tag}</button>
             ))}
         </div>
         <div class="bg-white fade-in-delay shadow-md border border-4 border-solid border-sky-700 p-3 w-full" style={{"--downtime": '0.2s'}}>
-            <ul class="divide-y divide-gray-300" id="post-list">
+            <ul class="post-list" id="post-list">
                 {posts.map((post, index) => (
                     <li class="py-3 fade-in-delay" style={{"--downtime": `${index * 0.4}s`}} data-tags={post.data.tags?.join(',') ?? ''}>
                         <a href={`/blog/${post.id}/`} class="post-row">
@@ -104,6 +104,14 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
         font-size: 0.75rem;
         text-align: right;
     }
+    .post-list li {
+        border-top: 1px solid #4b5563; /* matches your divide-green-400 color */
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+    .post-list li.no-top-border {
+        border-top: none;
+    }
 </style>
 
 <script>
@@ -112,6 +120,7 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
     
     function applyFilter(selectedTag : string) {
         let visibleIndex = 0;
+        let firstVisibleFound = false;
 
         posts.forEach(post => {
             const postTags = post.dataset.tags?.split(',') ?? [];
@@ -120,6 +129,13 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
             if (shouldShow) {
                 post.style.setProperty('--downtime', `${visibleIndex * 0.15}s`);
                 post.style.display = '';
+
+                if (!firstVisibleFound) {
+                    post.classList.add('no-top-border');
+                    firstVisibleFound = true;
+                } else {
+                    post.classList.remove('no-top-border');
+                }
 
                 post.classList.remove('fade-in-delay');
                 void post.offsetWidth;
@@ -142,4 +158,6 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
             applyFilter(selectedTag);
         });
     });
+
+    applyFilter('all');
 </script>
