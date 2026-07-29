@@ -26,11 +26,11 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? [])
         <div class = "flex flex-wrap gap-2 mb-6" id="tag-filters">
             <button class={`tag-filter-btn active bg-white text-black`} data-tag="all">All</button>
             {allTags.map(tag => (
-                <button class={`tag-filter-btn ${tagColors[tag] ?? defaultTagColor}`} data-tag={tag}>{tag}</button>
+                <button class={`tag-filter-btn ${tagColors[tag] ?? defaultTagColor} transition-all hover:brightness-125`} data-tag={tag}>{tag}</button>
             ))}
         </div>
         <div class="fade-in-delay shadow-md border border-green-400 rounded-lg p-2 w-full" style={{"--downtime": '0.2s'}}>
-            <ul class="divide-y divide-green-400" id="project-list">
+            <ul class="project-list" id="project-list">
                 {projects.map((project, index) => (
                     <li class="py-3 fade-in-delay" style={{"--downtime": `${index * 0.4}s`}} data-tags={project.data.tags?.join(',') ?? ''}>
                         <a href={`/projects/${project.id}/`} class="project-row">
@@ -100,6 +100,14 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? [])
         color: black;
         border-color: #29ff92;
     }
+    .project-list li {
+        border-top: 1px solid #05df72; /* matches your divide-green-400 color */
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+    .project-list li.no-top-border {
+        border-top: none;
+    }
 </style>
 
 <script>
@@ -133,6 +141,7 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? [])
     
     function applyFilter(selectedTag : string) {
         let visibleIndex = 0;
+        let firstVisibleFound = false;
 
         projects.forEach(project => {
             const projectTags = project.dataset.tags?.split(',') ?? [];
@@ -141,6 +150,14 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? [])
             if (shouldShow) {
                 project.style.setProperty('--downtime', `${visibleIndex * 0.15}s`);
                 project.style.display = '';
+
+                
+                if (!firstVisibleFound) {
+                    project.classList.add('no-top-border');
+                    firstVisibleFound = true;
+                } else {
+                    project.classList.remove('no-top-border');
+                }
 
                 project.classList.remove('fade-in-delay');
                 void project.offsetWidth;
@@ -163,4 +180,6 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? [])
             applyFilter(selectedTag);
         });
     });
+
+    applyFilter('all');
 </script>
