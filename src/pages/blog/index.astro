@@ -4,6 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import NavButtons from "../../components/nav-buttons.astro";
 
 const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 // Record constant to plug in styling per tag type
 const tagColors: Record<string, string> = {
@@ -11,14 +12,14 @@ const tagColors: Record<string, string> = {
     Music: 'bg-pink-100 text-pink-700',
     Games: 'bg-orange-100 text-orange-700',
     Review: 'bg-yellow-100 text-yellow-700',
-    Lifestyle: 'bg-green-100 text-green700',
+    Lifestyle: 'bg-green-100 text-green-700',
     Gym: 'bg-red-100 text-red-700'
 };
 
 const defaultTagColor = 'bg-blue-100 text-blue-700';
 
 // Flat array of all unique tags 
-const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
+const allTags = [...new Set(sortedPosts.flatMap(post => post.data.tags ?? []))];
 ---
 
 <!-- Design for the blog, detailing the list of posts -->
@@ -35,7 +36,7 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
         </div>
         <div class="bg-white fade-in-delay shadow-md border border-4 border-solid border-sky-700 p-3 w-full" style={{"--downtime": '0.2s'}}>
             <ul class="post-list" id="post-list">
-                {posts.map((post, index) => (
+                {sortedPosts.map((post, index) => (
                     // The list of blog posts all fade in sequentially. Index increases the lower you go down the posts, so it is used to determine how much downtime
                     // Each post has before they appear. The most recent posts appear first.
                     <li class="py-3 fade-in-delay" style={{"--downtime": `${index * 0.4}s`}} data-tags={post.data.tags?.join(',') ?? ''}>
