@@ -9,4 +9,4 @@ Check check. One Two Three. The quick brown fox jumped over the lazy dog. Hello 
 
 ![Look at this cool photo](../../assets/images/front-page/aria-chair.gif)
 
-I'm testing the images in conjunction with the notebook styling now 🤓 
+I'm testing the images in conjunction with the notebook styling now 🤓

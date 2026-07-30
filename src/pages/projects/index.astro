@@ -7,11 +7,24 @@ const projects = await getCollection('projects');
 
 // Record constant to plug in styling per tag type
 const tagColors: Record<string, string> = {
+    // Programming Languages
     'C': 'bg-blue-100 text-blue-700',
-    'C++': 'bg-pink-100 text-pink-700',
-    Astro: 'bg-fuchsia-100 text-fuchsia-700',
-    JavaScript: 'bg-orange-100 text-orange-700',
+    'C++': 'bg-blue-400 text-white',
+    Python: 'bg-sky-700 text-yellow-400',
+    JavaScript: 'bg-yellow-300 text-black',
+
+    // Frameworks
+    Jupyter: 'bg-orange-400 text-gray-700',
     Tailwind: 'bg-sky-100 text-sky-700',
+    Astro: 'bg-fuchsia-900 text-white',
+    PyTorch: 'bg-red-700 text-white',
+
+    // Topics
+    'Computer Vision': 'bg-gray-900 border border-blue-400 text-blue-400',
+    'Deep Learning': 'bg-sky-400 text-sky-900',
+    'Machine Learning': 'bg-pink-100 text-pink-700',
+
+    // Mediums
     Videogame: 'bg-red-100 text-red-700 border-2 border-red-700',
     Website: 'bg-yellow-100 text-yellow-700 border-2 border-yellow-700',
     Conversation: 'bg-green-100 text-green-700'
@@ -20,6 +33,11 @@ const defaultTagColor = 'bg-black text-green-400 border border-green-400'
 
 // Flat array of all unique tags 
 const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? []))];
+
+// Replace description with *'s in their exact positions
+function maskText(text: string): string {
+    return text.replace(/\S/g, '*');
+}
 ---
 
 <!-- Design for the projects list -->
@@ -44,7 +62,7 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? [])
                         <a href={`/projects/${project.id}/`} class="project-row">
                             <span class="title">{project.data.title}</span>
                             <div class="meta-row">
-                                <span class="description" data-text={project.data.description}>{'*'.repeat(project.data.description.length)}</span>
+                                <span class="description" data-text={project.data.description}>{maskText(project.data.description)}</span>
                                 <div class="tags">
                                     {project.data.tags?.map(tag => (
                                         <span class={`tag-badge ${tagColors[tag] ?? defaultTagColor}`}>{tag}</span>
@@ -106,6 +124,9 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? [])
         padding: 0.15rem 0.5rem;
         border-radius: 0.375rem;
         font-weight: 500;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }    
 
     /* Size and positioning for tag badges in the filter search */
@@ -136,6 +157,19 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? [])
 </style>
 
 <script>
+    // Replace description with *'s in their exact positions
+    function maskText(text: string): string {
+        return text.replace(/\S/g, '*');
+    }
+    
+    // Calculate interval speed for description reveal
+    function calcInterval(length: number): number {
+        let speed = (length > 80) // Piecewise function
+            ? 15
+            : 60 - 4 * length / 7;
+        return speed;
+    }
+
     // Script for revealing description when hovering over its post
     document.querySelectorAll('.project-row').forEach(row => { // Select all under the project row class (this includes the description, tags, etc)
         // The span block containing the description
@@ -143,7 +177,8 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? [])
         if (!descSpan) return; // Do nothing if no description is present
 
         const realText = descSpan.dataset.text ?? '';     // Keep a copy of the description's actual text
-        const maskText = '*'.repeat(realText.length);     // The mask hiding the description will be a string of *** matching the length of the description
+        const mask = maskText(realText);                  // The mask hiding the description, replaces the actual characters with *
+        const speed = calcInterval(realText.length);      // Determining the speed at which the description is revealed when hovering over the project
         let typeInterval: ReturnType<typeof setInterval>; // Use an interval to replace *'s sequentially
         let index = 0;                                    // Index to increment the amount of revealed description text with each interval
 
@@ -159,17 +194,17 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? [])
                 // Create a slice between the real text and the * mask every interval
                 // The real text slice gets bigger every interval because index is incrementing
                 // And the * mask is composed of whatever is remaining after the slice
-                descSpan.textContent = realText.slice(0, index) + maskText.slice(index);
+                descSpan.textContent = realText.slice(0, index) + mask.slice(index);
 
                 // Stop the interval when the description is finished
                 if (index >= realText.length) clearInterval(typeInterval);
-            }, 25);
+            }, speed);
         });
 
         // When the mouse leaves the post, the span block removes the revealed description and replaces it with the * mask again
         row.addEventListener('mouseleave', () => {
             clearInterval(typeInterval);
-            descSpan.textContent = maskText;
+            descSpan.textContent = mask;
         });
     });
 
