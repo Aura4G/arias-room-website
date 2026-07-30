@@ -4,6 +4,8 @@ import Layout from "../../layouts/Layout.astro";
 import NavButtons from "../../components/nav-buttons.astro";
 
 const projects = await getCollection('projects');
+
+// Record constant to plug in styling per tag type
 const tagColors: Record<string, string> = {
     'C': 'bg-blue-100 text-blue-700',
     'C++': 'bg-pink-100 text-pink-700',
@@ -16,22 +18,28 @@ const tagColors: Record<string, string> = {
 }
 const defaultTagColor = 'bg-black text-green-400 border border-green-400'
 
+// Flat array of all unique tags 
 const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? []))];
 ---
+
+<!-- Design for the projects list -->
 <Layout title="Aria's Projects" bgColor="bg-black">
     <NavButtons color="green" font="font-mono"/>
     <div style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem;" class="flex flex-col items-center font-mono">
         <h1 class="typing text-4xl mb-4 text-green-400 text-center underline" style={{"--chars": 11, "--speed": '1s'}}>My Projects</h1>
         <h1 class="text-xl mb-4 text-green-400 text-center">Hover over a project to see its description!</h1>
+        <!-- Use the allTags array display each unique tag as a button, allowing for filtering projects -->
         <div class = "flex flex-wrap gap-2 mb-6" id="tag-filters">
             <button class={`tag-filter-btn active bg-white text-black`} data-tag="all">All</button>
             {allTags.map(tag => (
-                <button class={`tag-filter-btn ${tagColors[tag] ?? defaultTagColor} transition-all hover:brightness-125`} data-tag={tag}>{tag}</button>
+                <button class={`tag-filter-btn ${tagColors[tag] ?? defaultTagColor} transition-all hover:brightness-125`} data-tag={tag}>{tag}</button> // Match the tag string to the tailwindcss excerpt in the frontmatter to get the appropriate colour
             ))}
         </div>
         <div class="fade-in-delay shadow-md border border-green-400 rounded-lg p-2 w-full" style={{"--downtime": '0.2s'}}>
             <ul class="project-list" id="project-list">
                 {projects.map((project, index) => (
+                    // The list of projects all fade in sequentially. Index increases the lower you go down the projects, so it is used to determine how much downtime
+                    // Each project has before they appear. The most recent projects appear first.
                     <li class="py-3 fade-in-delay" style={{"--downtime": `${index * 0.4}s`}} data-tags={project.data.tags?.join(',') ?? ''}>
                         <a href={`/projects/${project.id}/`} class="project-row">
                             <span class="title">{project.data.title}</span>
@@ -52,20 +60,26 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? [])
 </Layout>
 
 <style>
+    /* Contains the title */
     .project-row {
         display: grid;
         grid-template-rows: auto auto;
         gap: 0.5rem;
         align-items:start;
-        color: white;
+        color: #cccccc;
         font-size: 1.125rem;
     }
+
+    /* Title styling */
     .title {
         font-weight: 500;
     }
     .project-row:hover .title {
         text-decoration: underline;
+        color: white;
     }
+
+    /* Contains the description and tags of the project */
     .meta-row {
         display:flex;
         justify-content: space-between;
@@ -77,71 +91,94 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? [])
         color: #05df72;
         font-size: 0.875rem;
     }
+
+    /* Positioning of the tags */
     .tags {
         display: flex;
         gap: 0.4rem;
         flex-wrap: wrap;
         justify-content: flex-end;
     }
+
+    /* The styling of a given tag badge in the filter search/tag section */
     .tag-badge {
         font-size: 0.75rem;
         padding: 0.15rem 0.5rem;
         border-radius: 0.375rem;
         font-weight: 500;
     }    
+
+    /* Size and positioning for tag badges in the filter search */
     .tag-filter-btn {
         padding: 0.4rem 0.8rem;
         border-radius: 0.5rem;
         cursor: pointer;
         font-size: 0.875rem;
     }
+
+    /* The tag the blog page is currently using to filter projects uses these colours */
     .tag-filter-btn.active {
         background: #29ff92;
         color: black;
         border-color: #29ff92;
     }
+
+    /* Line partitions between each project in the presented blog list. Partitions always appear above their project */
     .project-list li {
         border-top: 1px solid #05df72; /* matches your divide-green-400 color */
         padding-top: 0.75rem;
         padding-bottom: 0.75rem;
     }
+    /* The project at the top of the list will not have a partition above it */
     .project-list li.no-top-border {
         border-top: none;
     }
 </style>
 
 <script>
-    document.querySelectorAll('.project-row').forEach(row => {
+    // Script for revealing description when hovering over its post
+    document.querySelectorAll('.project-row').forEach(row => { // Select all under the project row class (this includes the description, tags, etc)
+        // The span block containing the description
         const descSpan = row.querySelector<HTMLElement>('.description');
-        if (!descSpan) return;
+        if (!descSpan) return; // Do nothing if no description is present
 
-        const realText = descSpan.dataset.text ?? '';
-        const maskText = '*'.repeat(realText.length);
-        let typeInterval: ReturnType<typeof setInterval>;
-        let index = 0;
+        const realText = descSpan.dataset.text ?? '';     // Keep a copy of the description's actual text
+        const maskText = '*'.repeat(realText.length);     // The mask hiding the description will be a string of *** matching the length of the description
+        let typeInterval: ReturnType<typeof setInterval>; // Use an interval to replace *'s sequentially
+        let index = 0;                                    // Index to increment the amount of revealed description text with each interval
 
+        // When the mouse hovers over the entire post
         row.addEventListener('mouseenter', () => {
+            // Reset the interval and the index: The *'s remain in the beginning but the index restarting ensures each character replaces a *
             clearInterval(typeInterval);
             index = 0;
+
             typeInterval = setInterval(() => {
                 index++;
+
+                // Create a slice between the real text and the * mask every interval
+                // The real text slice gets bigger every interval because index is incrementing
+                // And the * mask is composed of whatever is remaining after the slice
                 descSpan.textContent = realText.slice(0, index) + maskText.slice(index);
+
+                // Stop the interval when the description is finished
                 if (index >= realText.length) clearInterval(typeInterval);
             }, 25);
         });
 
+        // When the mouse leaves the post, the span block removes the revealed description and replaces it with the * mask again
         row.addEventListener('mouseleave', () => {
             clearInterval(typeInterval);
             descSpan.textContent = maskText;
         });
     });
 
-    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.tag-filter-btn');
-    const projects = document.querySelectorAll<HTMLLIElement>('#project-list li');
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.tag-filter-btn'); // The buttons at the top of the page, of each unique tag
+    const projects = document.querySelectorAll<HTMLLIElement>('#project-list li');         // The list of projects
     
     function applyFilter(selectedTag : string) {
-        let visibleIndex = 0;
-        let firstVisibleFound = false;
+        let visibleIndex = 0;          // Counts how many projects are under the filter, to adjust the fade in animation downtime each project will get
+        let firstVisibleFound = false; // Activates once the first project is entered, so that the only the first project's upper partition is removed
 
         projects.forEach(project => {
             const projectTags = project.dataset.tags?.split(',') ?? [];
@@ -153,23 +190,24 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? [])
 
                 
                 if (!firstVisibleFound) {
-                    project.classList.add('no-top-border');
-                    firstVisibleFound = true;
+                    project.classList.add('no-top-border'); // Ensures the first project has no top border
+                    firstVisibleFound = true;               // Any project proceeding this first project will have a top border
                 } else {
-                    project.classList.remove('no-top-border');
+                    project.classList.remove('no-top-border'); // Gives each project a top partition to separate projects effectively
                 }
 
-                project.classList.remove('fade-in-delay');
+                project.classList.remove('fade-in-delay'); // Remove the old fade in delays
                 void project.offsetWidth;
-                project.classList.add('fade-in-delay');
+                project.classList.add('fade-in-delay');    // And reintroduce the fade in with the new downtimes so filtered projects still load quickly
 
-                visibleIndex++;
+                visibleIndex++; // Increments every time a project of that tag is found
             } else {
-                project.style.display = 'none';
+                project.style.display = 'none'; // Display is set to none; the project does not appear in the filtered list
             }
         })
     }
     
+    // Event listener changing the active tag button upon clicking one of the tag filter buttons
     filterButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const selectedTag = btn.dataset.tag ?? 'all';
@@ -181,5 +219,6 @@ const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? [])
         });
     });
 
+    // Runs upon page opening, 'all' is applied so every project is shown first regardless of tag
     applyFilter('all');
 </script>

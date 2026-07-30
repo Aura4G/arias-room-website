@@ -1,12 +1,14 @@
 ---
 import '../styles/global.css';
 
+// Properties to change the page name and background fill colour
 interface Props {
 	title?: string;
 	bgColor?: string;
 }
 const { title = "Aria Noroozi", bgColor = "bg-white" } = Astro.props;
 ---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -17,11 +19,12 @@ const { title = "Aria Noroozi", bgColor = "bg-white" } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 
+		<!-- Include the google fonts api to add more fonts if needed -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
   		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Fraunces:wght@400;600&display=swap&family=Caveat:wght@400;500;700" rel="stylesheet">
 	</head>
-	<body class={`${bgColor} min-h-screen fade-in`}>
+	<body class={`${bgColor} min-h-screen fade-in`}> <!-- Fills the screen with the colour and applies the page-wide fade-in -->
 		<slot />
 	</body>
 </html>

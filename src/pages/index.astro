@@ -1,5 +1,8 @@
 ---
 import Externals from "../components/externals.astro"
+
+/* Import images from assets as well as the Image class astro provides */
+/* Using animated gifs I've rendered as they're lightweight and expressive */
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import blogImg from "../assets/images/front-page/blog-scroll.png"
@@ -10,39 +13,49 @@ import idleImg from "../assets/images/front-page/music-idle.png"
 import defAlbumImg from "../assets/images/misc/default-album.png"
 ---
 
+<!-- Design for the "Office" front page of my website -->
 <Layout title="Aria's Office" bgColor="bg-white">
-	<Externals color="gray"/>
+	<Externals color="gray"/> <!-- Use only the Externals buttons, buttons to every page are found here naturally -->
 	<div class="flex flex-col items-center justify-center min-h-[70vh] text-center gap-6">
-		<h1 class="font-display text-5xl font-bold underline decoration-double">Aria's Office</h1>		
+		<h1 class="font-display text-5xl font-bold underline decoration-double">Aria's Office</h1>
+		<!-- This section puts the combination of page button, its arrow, and its corresponding animation (that I drew hehehe) -->
+		<!-- Into columns, so that they're all displayed inline, giving a flat room feel -->
 		<div class="flex justify-between w-full px-4 md:px-[15%]">
+			<!-- Button-Arrow-Animation combo for the Blog page -->
 			<div class="flex flex-col items-center gap-2 group">
 				<a href="/blog/" class=" px-8 py-7 border border-solid border-black bg-white text-xl text-black hover:text-blue-400 hover:bg-sky-100 hover:border-blue-600 duration-300 ">Blog</a>
 				<span class="text-2xl text-black group-hover:text-blue-400 transition-colors duration-300">↓</span>
 				<Image src={blogImg} alt="Blog" class="w-63 h-96 object-cover" loading="eager" />
 			</div>
+			<!-- For the About Me page -->
 			<div class="flex flex-col items-center gap-2 group">
 				<a href="/about/" class=" px-8 py-7 border border-solid border-black bg-white text-xl text-black hover:text-purple-400 hover:border-purple-600 hover:bg-purple-200 duration-300">About Me!</a>
 				<span class="text-2xl text-black group-hover:text-purple-400 transition-colors duration-300">↓</span>
 				<Image src={aboutImg} alt="About Me!" class="w-63 h-96 object-cover" loading="eager"/>
 			</div>
+			<!-- For the Projects page -->
 			<div class="flex flex-col items-center gap-2 group">
 				<a href="/projects/" id="matrix-btn" class="relative overflow-hidden inline-block px-8 py-7 border border-black text-xl text-black font-mono hover:border-green-400 hover:text-green-400 hover:bg-black transition-colors duration-300">
+					<!-- This span block plays the random matrix typing animation over the button text when hovering over said button -->
 					<span id="matrix-layer" class="absolute inset-0 pointer-events-none z-0"></span>
 					<span class="relative z-10">Projects</span>
 				</a>
 				<span class="text-2xl text-black group-hover:text-green-400 transition-colors duration-300">↓</span>
 				<Image src={projectsImg} alt="Projects Preview" class="w-63 h-96 object-cover" loading="eager" />
 			</div>
+			<!-- For the last.fm widget -->
 			<div class="flex flex-col items-center gap-2">
 				<a href="#" id="nowplaying-btn" target="_blank" class="flex items-center gap-4 px-4 py-3 border border-solid border-red-600 bg-white text-xl text-red-400 w-65 hover:bg-red-200 duration-300 ">
+					<!-- Album art is pulled from last.fm; there is a default art I made that appears before the proper art loads -->
 					<Image id="nowplaying-art" src={defAlbumImg} alt="Album art" width={128} height={128} class="w-16 h-16 object-cover rounded-md flex-shrink-0" loading="eager" />
-					<div class="flex flex-col text-left overflow-hidden">
+					<div class="flex flex-col text-left overflow-hidden"> <!-- Design for the widget, displays album art on left, and artist, song and status on the right -->
 						<span id="nowplaying-song" class="truncate text-lg font-semibold text-red-700">Loading...</span>
 						<span id="nowplaying-artist" class="truncate text-sm text-red-500">...</span>
 						<span id="nowplaying-status" class="truncate text-xs text-red-400">...</span>
 					</div>
 				</a>
 				<span id="music-arrow" class="text-2xl text-red-400">↓</span>
+				<!-- Image changes depending on whether I'm actively listening to music, according to last.fm -->
 				<Image src={playingImg} alt="Music Player" id="vinyl-art" class="w-63 h-96 object-cover" loading="eager" />
 			</div>
 		</div>
@@ -50,6 +63,7 @@ import defAlbumImg from "../assets/images/misc/default-album.png"
 </Layout>
 
 <style>
+	/* Styling for the matrix characters */
 	.matrix-char {
 		position: absolute;
 		top: -20px;
@@ -58,6 +72,7 @@ import defAlbumImg from "../assets/images/misc/default-album.png"
 		font-size: 14px;
 		animation: matrix-fall 1s linear forwards;
 	}
+	/* The movement, appearance and disappearance of matrix characters in the animation */
 	@keyframes matrix-fall {
 		0% { transform: translateY(var(--start-y)); opacity: 0; }
 		20% { opacity: 1; }
@@ -66,17 +81,18 @@ import defAlbumImg from "../assets/images/misc/default-album.png"
 	}
 </style>
 
+<!-- Dedicated script for the matrix animation -->
 <script>
 	const btn = document.getElementById('matrix-btn');
 	const layer = document.getElementById('matrix-layer');
-	const chars = '#~[]{}()£$-+=*!?;:<>@0123456789';
-	let interval: ReturnType<typeof setInterval>;
+	const chars = '#~[]{}()£$-+=*!?;:<>@0123456789'; // All the different characters that can appear in the matrix typing animation.
+	let interval: ReturnType<typeof setInterval>;    // Use an interval to spawn and remove characters at a set pace
 
-	btn?.addEventListener('mouseenter', () => {
+	btn?.addEventListener('mouseenter', () => { // The animation triggers upon the mouse hovering over the projects button
 		interval = setInterval(() => {
 			const span = document.createElement('span');
 			span.className = 'matrix-char';
-			span.textContent = chars[Math.floor(Math.random() * chars.length)];
+			span.textContent = chars[Math.floor(Math.random() * chars.length)]; // Adds a random character from the chars array to the span every interval
 			
 			const zone = Math.random() < 0.5
 				? Math.random() * 15
@@ -85,17 +101,20 @@ import defAlbumImg from "../assets/images/misc/default-album.png"
 
 			layer?.appendChild(span);
 			setTimeout(() => span.remove(), 1200);
-		}, 120);
+		}, 120); // Types every 120ms
 	});
 
+	// Clears the span upon the mouse leaving the button
 	btn?.addEventListener('mouseleave', () => {
 		clearInterval(interval);
 		if (layer) layer.innerHTML = '';
 	});
 </script>
 
-<script define:vars={{ lastfmApiKey: "PLACEHOLDER_KEY", lastfmUsername: "PLACEHOLDER_NAME", playingSrc: playingImg.src, idleSrc: idleImg.src}}>
+<!-- Dedicated script for the last.fm widget functionality -->
+<script define:vars={{ lastfmApiKey: "PLACEHOLDER_KEY", lastfmUsername: "PLACEHOLDER_NAME", playingSrc: playingImg.src, idleSrc: idleImg.src}}> // Requires last.fm API key for usage
 	async function updateNowPlaying() {
+		// Attain all screen elements affected by the last.fm song/status
 		const btn = document.getElementById('nowplaying-btn');
 		const art = document.getElementById('nowplaying-art');
 		const songEl = document.getElementById('nowplaying-song');
@@ -106,18 +125,24 @@ import defAlbumImg from "../assets/images/misc/default-album.png"
 		if (!btn || !songEl || !artistEl || !statusEl || !belowImg) return;
 
 		try {
+			// Fetch a resource document object from last.fm
 			const res = await fetch(
 				`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${lastfmUsername}&api_key=${lastfmApiKey}&format=json&limit=1`
 			);
 			const data = await res.json();
+
+			// Last.fm stores recently listened tracks in a list data structure
+			// The most recent song, or the song I am currently listening to has index 0 in the list
 			const track = data?.recenttracks?.track?.[0];
 
 			if (track) {
-				const artist = track.artist?.['#text'] ?? 'Unknown Artist';
-				const name = track.name ?? 'Unknown Artist';
-				const isNowPlaying = track['@attr']?.nowplaying === 'true';
-				const albumArt = track.image?.find(img => img.size === 'large')?.['#text'];
+				// Track data in the last.fm json consists of:
+				const artist = track.artist?.['#text'] ?? 'Unknown Artist'; 				// The track's artist
+				const name = track.name ?? 'Unknown Artist';								// The track name
+				const isNowPlaying = track['@attr']?.nowplaying === 'true';					// Whether or not the track is currently being played
+				const albumArt = track.image?.find(img => img.size === 'large')?.['#text']; // The album art currently linked to the track
 
+				// Change all the on-screen elements according to the track ascertained
 				songEl.textContent = name;
 				artistEl.textContent = artist;
 				statusEl.textContent = isNowPlaying
@@ -125,12 +150,16 @@ import defAlbumImg from "../assets/images/misc/default-album.png"
 					: `Last played - last.fm`;
 
 				if (albumArt && art) art.src = albumArt;
-				if (track.url) btn.href = track.url;
+				if (track.url) btn.href = track.url; // The widget's link also changes to take you to the song I'm playing/played on the last.fm website
 
+				// The vinyl player gif below the last.fm widget changes depending on the listening status
 				belowImg.src = isNowPlaying
-					? playingSrc
-					: idleSrc;
+					? playingSrc // Spinning animation gif if I'm currently listening
+					: idleSrc;   // Static png if last played (currently not playing any music)
 
+				// The widget's colours also change depending on status
+				// Red (to go with last.fm's colour scheme) if currently playing
+				// Black if inactive
 				btn.style.border = isNowPlaying
 					? '1px solid #DC2626'
 					: '1px solid black';
@@ -151,17 +180,17 @@ import defAlbumImg from "../assets/images/misc/default-album.png"
 					? '#F87171'
 					: 'black';
 				
-			} else {
+			} else { // Condition for if no track can be ascertained/nothing in the list
 				songEl.textContent = 'No recent tracks';
 				artistEl.textContent = '';
 				statusEl.textContent = '';
 			}
-		} catch (err) {
+		} catch (err) { // Error handling for if last.fm cannot be accessed
 			text.textContent = 'Unable to load';
 			console.error('Last.fm fetch failed', err);
 		}
 	}
 
-	updateNowPlaying();
-	setInterval(updateNowPlaying, 60000);
+	updateNowPlaying(); 				  // Show up-to-date listening activity upon page load
+	setInterval(updateNowPlaying, 60000); // Refresh listening activity every minute
 </script>

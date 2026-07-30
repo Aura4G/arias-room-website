@@ -1,12 +1,16 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* --- FONTS --- */
 @theme {
     --font-sans: "Poppins", sans-serif;
     --font-display: "Fraunces", serif;
     --font-handwriting: "Caveat", serif;
 }
 
+
+/* --- BLOG NOTEBOOK --- */
+/* Notebook line spacing style for the blog page */
 .notebook-lines {
     line-height: 2rem;
     background-image: repeating-linear-gradient(
@@ -28,6 +32,9 @@
     margin: 2rem 0;
 }
 
+
+/* --- TYPING --- */
+/* Typing animation for projects pages, can change the speed of the typing */
 .typing {
     overflow: hidden;
     white-space: nowrap;
@@ -36,6 +43,7 @@
     animation: typing var(--speed, 1.5s) steps(var(--chars, 10), end) forwards, blink 0.8s step-end infinite;
 }
 
+/* Typing also requires specifying the number of characters in the line using the effect */
 @keyframes typing {
     from {
         width: 0;
@@ -45,12 +53,15 @@
     }
 }
 
+/* Blinking effect on right side of the typed region, to mimic the text cursor */
 @keyframes blink {
     50% {
         border-color: transparent;
     }
 }
 
+
+/* --- WHOLE PAGE FADE IN --- */
 .fade-in {
     animation: fadeIn 0.8s ease-in forwards;
 }
@@ -64,6 +75,9 @@
     }
 }
 
+
+/* --- SECTION FADE IN --- */
+/* Apply to a block to have it fade in after a specified down-time */
 .fade-in-delay {
     opacity: 0;
     transform: translateY(20px);
@@ -71,6 +85,7 @@
     animation-delay: var(--downtime, 0s);
 }
 
+/* The block fading in floats up */
 @keyframes fadeInUp {
     from {
         opacity: 0;
