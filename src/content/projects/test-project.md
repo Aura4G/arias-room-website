@@ -1,7 +1,7 @@
 ---
 title: "Test Project"
 description: "test"
-link: https://www.youtube.com/watch?v=HYOuFHRvi4s
+repo: https://www.youtube.com/watch?v=HYOuFHRvi4s
 tags: ["test"]
 ---
 
