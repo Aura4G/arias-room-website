@@ -1,12 +1,14 @@
 ---
 import "../styles/global.css";
 
+// Import svgs so that we can change icon colour depending on the page
 import GithubImg from "../assets/images/misc/github-brands-solid-full.svg";
 import LinkedInImg from "../assets/images/misc/square-linkedin-brands-solid-full.svg";
 
+// Colour property used to select the appropriate fill colour for the icon depending on the page
 interface Props {
     color?: string; 
-}
+};
 
 const { color = "gray" } = Astro.props;
 
@@ -14,16 +16,18 @@ const BtnColors: Record<string, string> = {
     gray: 'fill-gray-900',
     blue: 'fill-blue-700',
     purple: 'fill-purple-700',
-    green: 'fill-green-700',
-}
-const defaultBtnColor = 'fill-gray-700'
+    green: 'fill-green-700'
+};
+
+const defaultBtnColor = 'fill-gray-700';
 ---
 
+<!-- Externals icons appear in the top right of the page -->
 <div class="flex justify-end gap-4 mt-4 mr-4">
-    <a href="https://www.linkedin.com/in/aria-noroozi-5a32b62a8/" target="_blank">
+    <a href="https://www.linkedin.com/in/aria-noroozi-5a32b62a8/" aria-label="LinkedIn profile" target="_blank">
         <LinkedInImg width={32} height={32} class={`${BtnColors[color] ?? defaultBtnColor} transition-all duration-200 hover:brightness-300`}/>
     </a>
-    <a href="https://github.com/Aura4G" target="_blank">
+    <a href="https://github.com/Aura4G" aria-label="GitHub profile" target="_blank">
         <GithubImg width={32} height={32} class={`${BtnColors[color] ?? defaultBtnColor} transition-all duration-200 hover:brightness-300`}/>
     </a>
 </div>

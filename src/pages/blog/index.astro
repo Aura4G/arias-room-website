@@ -4,6 +4,8 @@ import Layout from "../../layouts/Layout.astro";
 import NavButtons from "../../components/nav-buttons.astro";
 
 const posts = await getCollection('blog');
+
+// Record constant to plug in styling per tag type
 const tagColors: Record<string, string> = {
     test: 'bg-gray-100 text-gray-700',
     Music: 'bg-pink-100 text-pink-700',
@@ -11,24 +13,31 @@ const tagColors: Record<string, string> = {
     Review: 'bg-yellow-100 text-yellow-700',
     Lifestyle: 'bg-green-100 text-green700',
     Gym: 'bg-red-100 text-red-700'
-}
-const defaultTagColor = 'bg-blue-100 text-blue-700'
+};
 
+const defaultTagColor = 'bg-blue-100 text-blue-700';
+
+// Flat array of all unique tags 
 const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
 ---
+
+<!-- Design for the blog, detailing the list of posts -->
 <Layout title="Aria's Blog" bgColor="bg-blue-200">
     <NavButtons color="blue"/>
     <div style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem;" class="flex flex-col items-center">
         <h1 class="text-5xl text-shadow-lg font-handwriting mb-8 text-white underline">My Blog ✎</h1>
+        <!-- Use the allTags array display each unique tag as a button, allowing for filtering blog posts -->
         <div class = "flex flex-wrap gap-2 mb-6" id="tag-filters">
             <button class={`tag-filter-btn active bg-white text-black`} data-tag="all">All</button>
             {allTags.map(tag => (
-                <button class={`tag-filter-btn ${tagColors[tag] ?? defaultTagColor} transition-all hover:brightness-125`} data-tag={tag}>{tag}</button>
+                <button class={`tag-filter-btn ${tagColors[tag] ?? defaultTagColor} transition-all hover:brightness-125`} data-tag={tag}>{tag}</button> // Match the tag string to the tailwindcss excerpt in the frontmatter to get the appropriate colour
             ))}
         </div>
         <div class="bg-white fade-in-delay shadow-md border border-4 border-solid border-sky-700 p-3 w-full" style={{"--downtime": '0.2s'}}>
             <ul class="post-list" id="post-list">
                 {posts.map((post, index) => (
+                    // The list of blog posts all fade in sequentially. Index increases the lower you go down the posts, so it is used to determine how much downtime
+                    // Each post has before they appear. The most recent posts appear first.
                     <li class="py-3 fade-in-delay" style={{"--downtime": `${index * 0.4}s`}} data-tags={post.data.tags?.join(',') ?? ''}>
                         <a href={`/blog/${post.id}/`} class="post-row">
                             <span class="title">{post.data.title}</span>
@@ -50,6 +59,7 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
 </Layout>
 
 <style>
+    /* Contains the title */
     .post-row {
         display: grid;
         grid-template-rows: auto auto auto;
@@ -58,6 +68,8 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
         color: #5281e6;
         font-size: 1.125rem;
     }
+    
+    /* Title styling */
     .title {
         font-weight: 500;
     }
@@ -65,35 +77,47 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
         text-decoration: underline;
         color: #87adff;
     }
+
+    /* Contains the description and tags of the post */
     .meta-row {
         display:flex;
         justify-content: space-between;
         width: 100%;
         align-items: flex-start;
     }
+
+    /* Description styling */
     .description {
         font-weight: 300;
         color: #6b7280;
         font-size: 0.875rem;
     }
+
+    /* Positioning of the tags */
     .tags {
         display: flex;
         gap: 0.4rem;
         flex-wrap: wrap;
         justify-content: flex-end;
     }
+
+    /* The styling of a given tag badge in the filter search/tag section */
     .tag-badge {
         font-size: 0.75rem;
         padding: 0.15rem 0.5rem;
         border-radius: 0.375rem;
         font-weight: 500;
     }
+
+    /* Size and positioning for tag badges in the filter search */
     .tag-filter-btn {
         padding: 0.4rem 0.8rem;
         border-radius: 0.5rem;
         cursor: pointer;
         font-size: 0.875rem;
     }
+
+    /* The tag the blog page is currently using to filter posts uses these colours */
     .tag-filter-btn.active {
         background: #0369a1;
         color: white;
@@ -104,23 +128,26 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
         font-size: 0.75rem;
         text-align: right;
     }
+
+    /* Line partitions between each post in the presented blog list. Partitions always appear above their post */
     .post-list li {
         border-top: 1px solid #4b5563; /* matches your divide-green-400 color */
         padding-top: 0.75rem;
         padding-bottom: 0.75rem;
     }
+    /* The post at the top of the list will not have a partition above it */
     .post-list li.no-top-border {
         border-top: none;
     }
 </style>
 
 <script>
-    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.tag-filter-btn');
-    const posts = document.querySelectorAll<HTMLLIElement>('#post-list li');
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.tag-filter-btn'); // The buttons at the top of the page, of each unique tag
+    const posts = document.querySelectorAll<HTMLLIElement>('#post-list li');               // The list of posts
     
     function applyFilter(selectedTag : string) {
-        let visibleIndex = 0;
-        let firstVisibleFound = false;
+        let visibleIndex = 0;          // Counts how many posts are under the filter, to adjust the fade in animation downtime each post will get
+        let firstVisibleFound = false; // Activates once the first post is entered, so that the only the first post's upper partition is removed
 
         posts.forEach(post => {
             const postTags = post.dataset.tags?.split(',') ?? [];
@@ -131,23 +158,24 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
                 post.style.display = '';
 
                 if (!firstVisibleFound) {
-                    post.classList.add('no-top-border');
-                    firstVisibleFound = true;
+                    post.classList.add('no-top-border'); // Ensures the first post has no top border
+                    firstVisibleFound = true;            // Any post proceeding this first post will have a top border
                 } else {
-                    post.classList.remove('no-top-border');
+                    post.classList.remove('no-top-border'); // Gives each post a top partition to separate posts effectively
                 }
 
-                post.classList.remove('fade-in-delay');
+                post.classList.remove('fade-in-delay'); // Remove the old fade in delays
                 void post.offsetWidth;
-                post.classList.add('fade-in-delay');
+                post.classList.add('fade-in-delay');    // And reintroduce the fade in with the new downtimes so filtered posts still load quickly
 
-                visibleIndex++;
+                visibleIndex++; // Increments every time a post of that tag is found
             } else {
-                post.style.display = 'none';
+                post.style.display = 'none'; // Display is set to none; the post does not appear in the filtered list
             }
         })
     }
     
+    // Event listener changing the active tag button upon clicking one of the tag filter buttons
     filterButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const selectedTag = btn.dataset.tag ?? 'all';
@@ -159,5 +187,6 @@ const allTags = [...new Set(posts.flatMap(post => post.data.tags ?? []))];
         });
     });
 
+    // Runs upon page opening, 'all' is applied so every post is shown first regardless of tag
     applyFilter('all');
 </script>

@@ -1,12 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import NavButtons from "../components/nav-buttons.astro"
+
+/* Import images from assets and use the Image class supplied by Astro */
 import { Image } from "astro:assets"
 import gradImg from "../assets/images/about/grad1.jpeg"
 import teachImg from "../assets/images/about/exeai3.jpeg"
 import meImg from "../assets/images/about/me1.jpeg"
 ---
 
+<!-- Design for the About Me page -->
 <Layout title="About Aria Noroozi" bgColor="bg-purple-100">
     <NavButtons color="purple"/>
     <div style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem;" class="flex flex-col items-center">
@@ -14,6 +17,7 @@ import meImg from "../assets/images/about/me1.jpeg"
         <p class="text-lg text-center font-sans mb-6">
             Hi! I am Aria, a developer with a keen aptitude for writing code, teaching, and making illustrations for fun.
         </p>
+        <!-- Three small boxes with images talking about myself. They fade in one after another using set downtimes and fade-in-delay -->
         <div class="fade-in-delay rounded-xl bg-fuchsia-200 shadow-lg flex flex-row items-center justify-center pl-4 gap-5 mb-6" style="--downtime: 0.25s;">
             <p class="text-sm font-sans">
                 I've recently earnt a Bachelor's degree in Computer Science at the University, scoring a 2:1. With
