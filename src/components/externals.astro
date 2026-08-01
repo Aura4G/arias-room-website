@@ -14,8 +14,8 @@ const { color = "gray" } = Astro.props;
 
 const BtnColors: Record<string, string> = {
     gray: 'fill-gray-900',
-    blue: 'fill-blue-700',
-    purple: 'fill-purple-700',
+    sky: 'fill-sky-700',
+    violet: 'fill-violet-700',
     green: 'fill-green-700'
 };
 
@@ -23,7 +23,7 @@ const defaultBtnColor = 'fill-gray-700';
 ---
 
 <!-- Externals icons appear in the top right of the page -->
-<div class="flex justify-end gap-4 mt-4 mr-4">
+<div class="flex justify-end gap-2 sm:gap-4 md:gap-4 lg:gap-4 mt-4 mr-2 sm:mr-4 md:mr-4 lg:mr-4">
     <a href="https://www.linkedin.com/in/aria-noroozi-5a32b62a8/" aria-label="LinkedIn profile" target="_blank">
         <LinkedInImg width={32} height={32} class={`${BtnColors[color] ?? defaultBtnColor} transition-all duration-200 hover:brightness-300`}/>
     </a>

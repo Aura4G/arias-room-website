@@ -20,32 +20,32 @@ import defAlbumImg from "../assets/images/misc/default-album.png"
 		<h1 class="font-display text-5xl font-bold underline decoration-double">Aria's Office</h1>
 		<!-- This section puts the combination of page button, its arrow, and its corresponding animation (that I drew hehehe) -->
 		<!-- Into columns, so that they're all displayed inline, giving a flat room feel -->
-		<div class="flex justify-between w-full px-4 md:px-[15%]">
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4 w-full px-4 lg:px-[10%] justify-items-center">
 			<!-- Button-Arrow-Animation combo for the Blog page -->
 			<div class="flex flex-col items-center gap-2 group">
-				<a href="/blog/" class=" px-8 py-7 border border-solid border-black bg-white text-xl text-black hover:text-blue-400 hover:bg-sky-100 hover:border-blue-600 duration-300 ">Blog</a>
+				<a href="/blog/" class=" px-8 py-7 bg-white border border-solid border-black bg-white text-xl text-black group-hover:text-blue-400 hover:bg-sky-100 group-hover:border-blue-600 duration-300 ">Blog</a>
 				<span class="text-2xl text-black group-hover:text-blue-400 transition-colors duration-300">↓</span>
-				<Image src={blogImg} alt="Blog" class="w-63 h-96 object-cover" loading="eager" />
+				<Image src={blogImg} alt="Blog" class="w-32 sm:w-40 md:w-56 lg:w-64 h-auto object-contain mb-6" loading="eager" />
 			</div>
 			<!-- For the About Me page -->
 			<div class="flex flex-col items-center gap-2 group">
-				<a href="/about/" class=" px-8 py-7 border border-solid border-black bg-white text-xl text-black hover:text-purple-400 hover:border-purple-600 hover:bg-purple-200 duration-300">About Me!</a>
+				<a href="/about/" class=" px-6 py-7 bg-white border border-solid border-black bg-white text-xl text-black group-hover:text-purple-400 group-hover:border-purple-600 hover:bg-purple-200 duration-300">About Me!</a>
 				<span class="text-2xl text-black group-hover:text-purple-400 transition-colors duration-300">↓</span>
-				<Image src={aboutImg} alt="About Me!" class="w-63 h-96 object-cover" loading="eager"/>
+				<Image src={aboutImg} alt="About Me!" class="w-32 sm:w-40 md:w-56 lg:w-64 h-auto object-contain mb-6" loading="eager"/>
 			</div>
 			<!-- For the Projects page -->
 			<div class="flex flex-col items-center gap-2 group">
-				<a href="/projects/" id="matrix-btn" class="relative overflow-hidden inline-block px-8 py-7 border border-black text-xl text-black font-mono hover:border-green-400 hover:text-green-400 hover:bg-black transition-colors duration-300">
+				<a href="/projects/" id="matrix-btn" class="relative overflow-hidden inline-block px-8 py-7 bg-white border border-black text-xl text-black font-mono group-hover:border-green-400 group-hover:text-green-400 hover:bg-black transition-colors duration-300">
 					<!-- This span block plays the random matrix typing animation over the button text when hovering over said button -->
 					<span id="matrix-layer" class="absolute inset-0 pointer-events-none z-0"></span>
 					<span class="relative z-10">Projects</span>
 				</a>
 				<span class="text-2xl text-black group-hover:text-green-400 transition-colors duration-300">↓</span>
-				<Image src={projectsImg} alt="Projects Preview" class="w-63 h-96 object-cover" loading="eager" />
+				<Image src={projectsImg} alt="Projects Preview" class="w-32 sm:w-40 md:w-56 lg:w-64 h-auto object-contain mb-6" loading="eager" />
 			</div>
 			<!-- For the last.fm widget -->
 			<div class="flex flex-col items-center gap-2">
-				<a href="#" id="nowplaying-btn" target="_blank" class="flex items-center gap-4 px-4 py-3 border border-solid border-red-600 bg-white text-xl text-red-400 w-65 hover:bg-red-200 duration-300 ">
+				<a href="#" id="nowplaying-btn" target="_blank" class="flex items-center gap-4 px-4 py-3 bg-white border border-solid border-red-600 bg-white text-xl text-red-400 w-65 hover:bg-red-200 duration-300 ">
 					<!-- Album art is pulled from last.fm; there is a default art I made that appears before the proper art loads -->
 					<Image id="nowplaying-art" src={defAlbumImg} alt="Album art" width={128} height={128} class="w-16 h-16 object-cover rounded-md flex-shrink-0" loading="eager" />
 					<div class="flex flex-col text-left overflow-hidden"> <!-- Design for the widget, displays album art on left, and artist, song and status on the right -->
@@ -56,7 +56,7 @@ import defAlbumImg from "../assets/images/misc/default-album.png"
 				</a>
 				<span id="music-arrow" class="text-2xl text-red-400">↓</span>
 				<!-- Image changes depending on whether I'm actively listening to music, according to last.fm -->
-				<Image src={playingImg} alt="Music Player" id="vinyl-art" class="w-63 h-96 object-cover" loading="eager" />
+				<Image src={playingImg} alt="Music Player" id="vinyl-art" class="w-32 sm:w-40 md:w-56 lg:w-64 h-auto object-contain mb-6" loading="eager" />
 			</div>
 		</div>
 	</div>
