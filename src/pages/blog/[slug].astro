@@ -4,7 +4,7 @@ import Layout from "../../layouts/Layout.astro";
 import NavButtons from "../../components/nav-buttons.astro";
 
 export async function getStaticPaths() {
-    const posts = await getCollection('blog');
+    const posts = await getCollection("blog");
     return posts.map(post => ({
         params: { slug: post.id },
         props: { post },
@@ -16,14 +16,14 @@ const { Content } = await render(post);
 
 // Record constant to plug in styling per tag type
 const tagColors: Record<string, string> = {
-    test: 'bg-gray-100 text-gray-700',
-    Music: 'bg-pink-100 text-pink-700',
-    Games: 'bg-orange-100 text-orange-700',
-    Review: 'bg-yellow-100 text-yellow-700',
-    Lifestyle: 'bg-green-100 text-green700',
-    Gym: 'bg-red-100 text-red-700'
+    test: "bg-gray-100 text-gray-700",
+    Music: "bg-pink-100 text-pink-700",
+    Games: "bg-orange-100 text-orange-700",
+    Review: "bg-yellow-100 text-yellow-700",
+    Lifestyle: "bg-green-100 text-green700",
+    Gym: "bg-red-100 text-red-700"
 }
-const defaultTagColor = 'bg-blue-100 text-blue-700'
+const defaultTagColor = "bg-blue-100 text-blue-700"
 ---
 
 <!-- Design for an individual blog post -->
