@@ -21,6 +21,7 @@ const tagColors: Record<string, string> = {
     "C++": "bg-blue-400 text-white",
     Python: "bg-sky-700 text-yellow-400",
     JavaScript: "bg-yellow-300 text-black",
+    Golang: "bg-white text-blue-400",
 
     // Frameworks
     Jupyter: "bg-orange-400 text-gray-700",
@@ -50,14 +51,14 @@ const defaultTagColor = "bg-black text-green-400 border border-green-400"
             ← Back to Projects
         </a>
         <!-- Typing effect on the project title, simple as the chars variable can be set to the number of characters in the title -->
-        <h1 class="typing text-4xl text-green-400 underline mb-4" style={{"--chars": project.data.title.length, "--speed": '1s'}}>{project.data.title}</h1>
+        <h1 class="typing text-4xl text-green-400 underline mb-4" style={{"--chars": project.data.title.length, "--speed": '1s', "fontSize": `clamp(1.25rem, ${40 / project.data.title.length}rem, 2.25rem)`}}>{project.data.title}</h1>
         <div class="tags mb-8 fade-in-delay" style={{"--downtime": '0.1s'}}>
             {project.data.tags?.map(tag => (
                 <span class={`tag-badge ${tagColors[tag] ?? defaultTagColor}`}>{tag}</span> // Match the tag string to the tailwindcss excerpt in the frontmatter to get the appropriate colour
             ))}
         </div>
         <!-- The markdown content of the project; use the prose class so it can be styled -->
-        <div class="prose prose-sm max-w-none text-green-400 mb-4 fade-in-delay" style={{"--downtime": '0.2s'}}>
+        <div class="prose prose-sm prose-invert max-w-none mb-4 fade-in-delay" style={{"--downtime": '0.2s'}}>
             <Content />
         </div>
         <div class="flex flex-col gap-4">
