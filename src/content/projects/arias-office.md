@@ -21,6 +21,8 @@ I'm fortunate for **Astro** being quite a simple (and not to mention fast) solut
 
 I've learnt a lot on the scripting front while making this website, too. The projects page you're reading this on has a script itself, besides the tag filtering functionality the blog page has too. Have you played around with the descriptions much yet? It was a great realisation using an interval and string slices to give the revealing effect when hovering over the post.
 
+Another thing! Have you seen the last.fm widget on the front page of the website? Pay close attention to when my last.fm is active or dormant. Ever notice how record stops spinning when I'm offline?
+
 Very happy I made this. I'm excited to expand on the website more in the future!
 
 ![me](../../assets/images/front-page/aria-chair.gif)
