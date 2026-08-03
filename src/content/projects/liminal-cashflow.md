@@ -2,7 +2,7 @@
 title: "Liminal Payroll: Hacksouthwest 2nd Placer"
 description: "A hackathon placer my friends and I created & submitted in under 24 hours to chart and change company payroll and in/out-going cashflow, featuring an inbuilt AI agent."
 repo: https://github.com/apex-hinde/HSW-garbo
-tags: ["Application", "AI", "Machine Learning", "Golang", "Hackathon", "Machine Learning"]
+tags: ["Application", "AI", "Golang", "Hackathon", "Machine Learning"]
 ---
 
 ## What is Liminal Payroll?
@@ -14,6 +14,8 @@ This project came together through me and 3 of my friends entering Hacksouthwest
 It was fun bantering with the others on what to concoct those first few hours. When we settled into our roles though, it was nothing but an all-out lock-in sesh till the very end.
 
 This meant that sleep became a very foreign concept to me! The 1 hour I got felt heavenly though.
+
+![team](../../assets/images/projects/liminalpayroll/team.jpeg)
 
 ## My Role
 
@@ -44,3 +46,5 @@ $$
 This maths could be **programmed in native Golang**, making it the fastest option computationally! The application forms an OLS regression across the span of 30 days (symbolic of a month), as far back as the user selects. Upon weighting each regression's gradient depending on its distance from current day, it would affect the ensuing linear regression that projects future cashflow!
 
 My teammates hard work in conjunction with my breakthrough earnt us **2nd place**, along with 100 of the host company's smart coin! I enjoyed this project greatly, and I'm eager to get back into the crazy art of breakthroughs at hackathons, fuelled by pizza, once again.
+
+![cashflow](../../assets/images/projects/liminalpayroll/cashflow.jpg)
