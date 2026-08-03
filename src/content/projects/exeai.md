@@ -9,9 +9,18 @@ tags: ["AI", "Machine Learning", "Python", "Jupyter", "Teaching"]
 
 ExeAI is a machine learning fundamentals course I **co-founded and lectured for** in 2025 & 2026 at the University of Exeter. As I've graduated and am passing on the torch to the new team, I won't be continuing my duties there, but they've got my contact just in case!
 
+![exeai1](../../assets/images/projects/exeai/exeai1.jpeg)
+
+![exeai3](../../assets/images/projects/exeai/exeai3.jpeg)
+
+
 ExeAI also has a lil hackathon at the end of the lessons; I co-hosted the hackathon both years.
 
 **I taught 150+ students in 2025,** receiving 4.5/5 in student reviews. I also taught a lesson in 2026 to 80 students.
+
+**In 2026, we won the student guild empowerment award!** It was an unforgettable experience. To think having this outreach you adore, getting to interact with so many people in such a profound capacity, is worthy of being awarded is one many reasons I do this for the love of the game!
+
+![award](../../assets/images/projects/exeai/award.jpeg)
 
 ## The Story (2024-25)
 
@@ -31,8 +40,8 @@ Sooooo yeah scripts were a no-go; I instead wrote down short notes per slide tha
 
 And not one I was fully expecting to make! I did not know if I'd be in Exeter 2025-26 on account of my placement hunt. But alas, it was a failed hunt :(
 
-I had been super preoccupied with the massive effort spike all students experience going into third year, and my time **managing workshop rooms for ExCode** in first term (ExCode being the programming-focused subsidiary of ExeAI I had a lesser hand in), till before I knew it, ExeAI was in season again. They had asked me if I wanted to teach again, to which **my response was an instantaneous yes!!!** Albeit for only one lesson this time around, but man the vibes were so different. Maybe it was the bevy of courseworks and my diss keeping me up that **made me such a cool cucumber this session,** or maybe it's because I just knew the whole song and dance at this point, but it was a farcry from my deer-in-headlights moment at ExeAI 2025 hahaha. I was cracking jokes, walking across the whole auditorium, charismatic as ever. The anxiety had rolled off the map! **I even got the audience to do a wave as I ran past them for goodness sake** (probably for the best that it wasn't recorded haha). It was also so nice a good friend of mine attended that lesson, as well as another one I leant a hand in.
+I had been super preoccupied with the massive effort spike all students experience going into third year, and my time **managing workshop rooms for ExCode** in first term (ExCode being the programming-focused subsidiary of ExeAI I had a lesser hand in), till before I knew it, ExeAI was in season again. They had asked me if I wanted to teach again, to which **my response was an instantaneous yes!!!** Albeit for only one lesson this time around, but man the vibes were so different. Maybe it was the bevy of courseworks and my diss keeping me up that **made me such a cool cucumber this session,** or maybe it's because I just knew the whole song and dance at this point, but it was a farcry from my deer-in-headlights moment at ExeAI 2025 hahaha. I was cracking jokes, walking across the whole auditorium, charismatic as ever. The anxiety had rolled off the map! **I even got the audience to do a wave as I ran past them for goodness sake** (probably for the best that this session wasn't recorded haha). It was also so nice a good friend of mine attended that lesson, as well as another one I leant a hand in.
 
-<br>
+![exeai4](../../assets/images/projects/exeai/exeai4.jpeg)
 
 The link below leads to my 2025 sessions, which made up the entire course that year. I hope you enjoy giving it a gander hehe.  

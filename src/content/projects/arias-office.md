@@ -17,7 +17,10 @@ I'm fortunate for **Astro** being quite a simple (and not to mention fast) solut
 
 **All of the front page animations were made by yours truly.** I figured that incorporated digitally drawn screen elements I made and slapping them onto the frontend would be a nice roundabout way of making me understand frontend and all of its quirks with positioning and styles better. Not only has it done that, but it has made coding this website all the more fun. Each animation you see on the frontpage took around 1-2 hours to make, and positioning them was not as hard as I thought it would be. Overall, incorporating hand-drawn elements into frontend is a great way to show yourself while also have fun making websites. Really that's the M.O I want to run with these days! **Have fun making cool stuff.**
 
-<br>
+![computer](../../assets/images/front-page/computer.gif)
+
 I've learnt a lot on the scripting front while making this website, too. The projects page you're reading this on has a script itself, besides the tag filtering functionality the blog page has too. Have you played around with the descriptions much yet? It was a great realisation using an interval and string slices to give the revealing effect when hovering over the post.
 
 Very happy I made this. I'm excited to expand on the website more in the future!
+
+![me](../../assets/images/front-page/aria-chair.gif)
