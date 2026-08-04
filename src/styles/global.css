@@ -32,6 +32,17 @@
     margin: 2rem 0;
 }
 
+.notebook-lines p,
+.notebook-lines h1,
+.notebook-lines h2,
+.notebook-lines h3,
+.notebook-lines ul,
+.notebook-lines ol,
+.notebook-lines blockquote {
+    margin-top: 0 !important;
+    margin-bottom: 2rem !important;
+}
+
 
 /* --- TYPING --- */
 /* Typing animation for projects pages, can change the speed of the typing */
