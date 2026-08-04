@@ -5,6 +5,7 @@ import Externals from "../components/externals.astro"
 /* Using animated gifs I've rendered as they're lightweight and expressive */
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
+import background from "../assets/images/front-page/background.png"
 import blogImg from "../assets/images/front-page/whiteboard.gif"
 import aboutImg from "../assets/images/front-page/aria-chair.gif"
 import projectsImg from "../assets/images/front-page/computer.gif"
@@ -16,7 +17,7 @@ import defAlbumImg from "../assets/images/misc/default-album.png"
 <!-- Design for the "Office" front page of my website -->
 <Layout title="Aria's Office" bgColor="bg-white">
 	<Externals color="gray"/> <!-- Use only the Externals buttons, buttons to every page are found here naturally -->
-	<div class="flex flex-col items-center justify-center min-h-[70vh] text-center gap-6">
+	<div class="flex flex-col items-center justify-center min-h-[70vh] text-center gap-6 px-20 py-20 bg-cover sm:bg-cover md:bg-cover lg:bg-contain bg-center bg-no-repeat" style={`background-image: url('${background.src}');`}>
 		<h1 class="font-display text-5xl font-bold underline decoration-double mb-8">Aria's Office</h1>
 		<!-- This section puts the combination of page button, its arrow, and its corresponding animation (that I drew hehehe) -->
 		<!-- Into columns, so that they're all displayed inline, giving a flat room feel -->
