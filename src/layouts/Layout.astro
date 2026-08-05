@@ -24,7 +24,7 @@ const { title = "Aria Noroozi", bgColor = "bg-white" } = Astro.props;
   		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&family=Fraunces:wght@400;600&display=swap&family=Caveat:wght@400;500;700" rel="stylesheet">
 	</head>
-	<body class={`${bgColor} min-h-screen fade-in`}> <!-- Fills the screen with the colour and applies the page-wide fade-in -->
+	<body class={`${bgColor} min-h-screen bg-fixed fade-in`}> <!-- Fills the screen with the colour and applies the page-wide fade-in -->
 		<slot />
 	</body>
 </html>
