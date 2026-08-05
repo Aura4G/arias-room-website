@@ -35,8 +35,8 @@ const tagColors: Record<string, string> = {
     Teaching: "bg-green-100 text-green-700 border-2 border-green-700",
     Application: "bg-sky-100 text-sky-700 border-2 border-sky-700",
     Hackathon: "bg-yellow-200 text-yellow-600 border-2 border-yellow-400"
-}
-const defaultTagColor = "bg-black text-green-400 border border-green-400"
+};
+const defaultTagColor = "bg-black text-green-400 border border-green-400";
 
 // Flat array of all unique tags 
 const allTags = [...new Set(projects.flatMap(project => project.data.tags ?? []))];

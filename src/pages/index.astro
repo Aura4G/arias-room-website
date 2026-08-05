@@ -5,13 +5,16 @@ import Externals from "../components/externals.astro"
 /* Using animated gifs I've rendered as they're lightweight and expressive */
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
-import background from "../assets/images/front-page/background.png"
-import blogImg from "../assets/images/front-page/whiteboard.gif"
-import aboutImg from "../assets/images/front-page/aria-chair.gif"
-import projectsImg from "../assets/images/front-page/computer.gif"
-import playingImg from "../assets/images/front-page/music-player.gif"
-import idleImg from "../assets/images/front-page/music-idle.png"
-import defAlbumImg from "../assets/images/misc/default-album.png"
+import background from "../assets/images/front-page/background.png";
+import blogImg from "../assets/images/front-page/whiteboard.gif";
+import aboutImg from "../assets/images/front-page/aria-chair.gif";
+import projectsImg from "../assets/images/front-page/computer.gif";
+import playingImg from "../assets/images/front-page/music-player.gif";
+import idleImg from "../assets/images/front-page/music-idle.png";
+import defAlbumImg from "../assets/images/misc/default-album.png";
+
+const lastfmApiKey = import.meta.env.LASTFM_API_KEY;
+const lastfmUsername = import.meta.env.LASTFM_USERNAME;
 ---
 
 <!-- Design for the "Office" front page of my website -->
@@ -113,7 +116,7 @@ import defAlbumImg from "../assets/images/misc/default-album.png"
 </script>
 
 <!-- Dedicated script for the last.fm widget functionality -->
-<script define:vars={{ lastfmApiKey: "PLACEHOLDER_KEY", lastfmUsername: "PLACEHOLDER_NAME", playingSrc: playingImg.src, idleSrc: idleImg.src}}> // Requires last.fm API key for usage
+<script define:vars={{ lastfmApiKey, lastfmUsername, playingSrc: playingImg.src, idleSrc: idleImg.src}}> // Requires last.fm API key for usage	
 	async function updateNowPlaying() {
 		// Attain all screen elements affected by the last.fm song/status
 		const btn = document.getElementById('nowplaying-btn');
