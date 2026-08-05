@@ -6,7 +6,7 @@ import Externals from "./externals.astro";
 interface Props {
     color?: string; 
     font?: string;
-}
+};
 
 const { color = "gray", font = "font-sans" } = Astro.props;
 
@@ -15,9 +15,9 @@ const BtnColors: Record<string, string> = {
     sky: "text-sky-600  border border-sky-700",
     violet: "text-violet-600  border border-violet-700",
     green: "text-green-600  border border-green-700"
-}
+};
 
-const defaultBtnColor = "text-gray-600  border border-gray-700"
+const defaultBtnColor = "text-gray-600  border border-gray-700";
 ---
 
 <!-- Navigation buttons appear in the top left; these are static links to the primary pages of my website -->
