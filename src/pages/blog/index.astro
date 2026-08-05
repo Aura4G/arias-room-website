@@ -16,7 +16,10 @@ const tagColors: Record<string, string> = {
     Gym: "bg-red-100 text-red-700",
     "Notice!": "bg-white text-red-500 border-1 border-red-500",
     Meta: "bg-purple-600 text-white",
-    Discussion: "bg-lime-200 text-lime-800"
+    Discussion: "bg-lime-200 text-lime-800",
+    Tech: "bg-orange-500 text-white",
+    Art: "bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white",
+    "???": "bg-gradient-to-b from-black via-purple-900 to-purple-800 text-white"
 };
 
 const defaultTagColor = "bg-blue-100 text-blue-700";
@@ -26,7 +29,7 @@ const allTags = [...new Set(sortedPosts.flatMap(post => post.data.tags ?? []))];
 ---
 
 <!-- Design for the blog, detailing the list of posts -->
-<Layout title="Aria's Blog" bgColor="bg-blue-200">
+<Layout title="Aria's Blog" bgColor="bg-gradient-to-r from-blue-300 via-blue-200 to-blue-300">
     <NavButtons color="sky"/>
     <div style="max-width: 700px; margin: 0 auto; padding: 2rem 1rem;" class="flex flex-col items-center">
         <h1 class="text-5xl text-shadow-lg text-shadow-sky-100 font-handwriting mb-8 text-sky-700 underline">My Blog ✎</h1>
@@ -34,7 +37,7 @@ const allTags = [...new Set(sortedPosts.flatMap(post => post.data.tags ?? []))];
         <div class = "flex flex-wrap gap-2 mb-6" id="tag-filters">
             <button class={`tag-filter-btn active bg-white text-black`} data-tag="all">All</button>
             {allTags.map(tag => (
-                <button class={`tag-filter-btn ${tagColors[tag] ?? defaultTagColor} transition-all hover:brightness-125`} data-tag={tag}>{tag}</button> // Match the tag string to the tailwindcss excerpt in the frontmatter to get the appropriate colour
+                <button class={`tag-filter-btn ${tagColors[tag] ?? defaultTagColor} transition-all shadow-md hover:brightness-125`} data-tag={tag}>{tag}</button> // Match the tag string to the tailwindcss excerpt in the frontmatter to get the appropriate colour
             ))}
         </div>
         <div class="bg-white fade-in-delay shadow-md border border-4 border-solid border-sky-700 p-3 w-full" style={{"--downtime": '0.2s'}}>
