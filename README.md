@@ -6,6 +6,13 @@ Developed in Astro and TailwindCSS.
 
 I wanted to have a universal space for all of my projects and ideas, and have others view them too, in the form of a colourful and animated website!
 
+## Features
+- Blog with tag filtering and "notebook-ruled" styling
+- Projects page with typewriter hover effect and tag filtering
+- Live "Now Playing" widget via last.fm
+- Custom hand-drawn illustrations and animations
+- Fully responsive layout
+
 ## License
 
 This project is dual-licensed:
