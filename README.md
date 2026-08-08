@@ -1,6 +1,6 @@
 # Aria's Office - The Website
 
-My personal portfolio, blog and projects page, found at [aria-noroozi.dev](aria-noroozi.dev)
+My personal portfolio, blog and projects page, found at [aria-noroozi.dev](https://aria-noroozi.dev)
 
 Developed in Astro and TailwindCSS.
 
